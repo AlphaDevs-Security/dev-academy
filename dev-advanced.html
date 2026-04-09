@@ -37,7 +37,7 @@ header{background:linear-gradient(135deg,#0f0f13 0%,#1a1024 100%);border-bottom:
 .screen.active{display:block}
 
 /* ── REGISTER ── */
-#reg-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 0%,#2d1b69 0%,#0f0f13 65%)}
+#reg-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 0%,#2d1b69 0%,#0f0f13 65%)}#reg-screen.active{display:flex}
 .reg-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:520px;width:100%;text-align:center;box-shadow:0 0 60px var(--glow)}
 .reg-card h1{font-size:2rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,#a78bfa,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .reg-card .sub{color:#94a3b8;font-size:.9rem;margin-bottom:32px;line-height:1.6}
@@ -308,8 +308,8 @@ function renderModule(){
       <div class="tab" data-tab="lab" onclick="setTab('lab')">&#x1F9EA; Lab</div>
       <div class="tab" data-tab="quiz" onclick="setTab('quiz')">&#x2753; Quiz</div>
     </div>
-    <div data-pane="lesson" class="tab-pane">'+LESSONS[state.cur]+'</div>
-    <div data-pane="lab" class="tab-pane" style="display:none">'+LABS[state.cur]+'</div>
+    <div data-pane="lesson" class="tab-pane">${LESSONS[state.cur]}</div>
+    <div data-pane="lab" class="tab-pane" style="display:none">${LABS[state.cur]}</div>
     <div data-pane="quiz" class="tab-pane" style="display:none"><div id="quiz-container"></div></div>
   `;
   setTab(state.tab);
