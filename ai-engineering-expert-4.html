@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en" id="root">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlphaDevs AI Engineering Expert</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0f0f13;color:#e2e8f0;min-height:100vh}
+a{color:inherit;text-decoration:none}
+:root{--acc:#0891b2;--acc2:#0e7490;--acc3:#164e63;--glow:rgba(8,145,178,.35);--card:#1a1a24;--border:#2a2a38}
+.logo-wordmark{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;line-height:1}
+.logo-wordmark .yw{color:#FFD700}.logo-wordmark .wh{color:#fff}
+.logo-sub{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;margin-top:2px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+header{background:linear-gradient(135deg,#0f0f13 0%,#071520 100%);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.hdr-right{display:flex;align-items:center;gap:16px}
+.badge{background:var(--acc3);color:#67e8f9;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.06em}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:.78rem;color:#94a3b8}
+#hdr-prog{width:120px;height:6px;background:#2a2a38;border-radius:3px;overflow:hidden}
+#hdr-prog-bar{height:100%;background:linear-gradient(90deg,var(--acc),#67e8f9);border-radius:3px;transition:width .5s}
+.lang-btn{background:#1a1a24;border:1px solid var(--border);color:#94a3b8;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:6px;cursor:pointer;letter-spacing:.06em;transition:all .2s}
+.lang-btn:hover{border-color:var(--acc);color:#67e8f9}
+.screen{display:none;min-height:100vh}.screen.active{display:block}
+#reg-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 0%,rgba(8,145,178,.15) 0%,transparent 70%),#0f0f13;min-height:100vh}
+#reg-screen.active{display:flex}
+.reg-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:440px}
+.reg-box h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.reg-box p{color:#94a3b8;font-size:.9rem;margin-bottom:28px;line-height:1.6}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.78rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.form-group input{width:100%;background:#0f0f13;border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:#e2e8f0;font-size:.95rem;outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--acc)}
+.btn-primary{width:100%;background:var(--acc);color:#fff;border:none;border-radius:8px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}
+.btn-primary:hover{background:var(--acc2)}
+.reg-note{font-size:.72rem;color:#64748b;margin-top:14px;line-height:1.5;text-align:center}
+#course-screen.active{display:flex;flex-direction:column}
+.course-body{display:flex;flex:1;min-height:calc(100vh - 61px)}
+.sidebar{width:280px;min-width:280px;background:var(--card);border-right:1px solid var(--border);padding:20px 0;overflow-y:auto;max-height:calc(100vh - 61px);position:sticky;top:61px}
+.sidebar-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#64748b;padding:0 20px 12px}
+.mod-item{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
+.mod-item:hover{background:rgba(8,145,178,.08)}
+.mod-item.active{background:rgba(8,145,178,.15);border-left-color:var(--acc)}
+.mod-item.locked{opacity:.45;cursor:not-allowed}
+.mod-num{width:28px;height:28px;border-radius:50%;background:#2a2a38;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+.mod-item.active .mod-num{background:var(--acc)}
+.mod-item.done .mod-num{background:#059669}
+.mod-info{flex:1;min-width:0}
+.mod-title{font-size:.82rem;font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mod-dur{font-size:.7rem;color:#64748b;margin-top:2px}
+.mod-score{font-size:.68rem;font-weight:700;color:#10b981;margin-top:2px}
+.main-content{flex:1;padding:32px 40px;max-width:860px;overflow-y:auto}
+.mod-header{margin-bottom:24px}
+.mod-header h1{font-size:1.8rem;font-weight:900;margin-bottom:6px}
+.mod-meta{display:flex;gap:16px;font-size:.8rem;color:#94a3b8}
+.tabs{display:flex;gap:4px;background:#0f0f13;border:1px solid var(--border);border-radius:8px;padding:4px;margin-bottom:24px;width:fit-content}
+.tab{padding:7px 18px;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;color:#64748b;transition:all .2s}
+.tab.active{background:var(--acc);color:#fff}
+.panel{display:none}.panel.active{display:block}
+.lesson-body h2{font-size:1.15rem;font-weight:800;margin:22px 0 8px;color:#67e8f9}
+.lesson-body h3{font-size:.95rem;font-weight:700;margin:16px 0 6px;color:#e2e8f0}
+.lesson-body p{font-size:.9rem;line-height:1.75;color:#cbd5e1;margin-bottom:12px}
+.lesson-body ul,.lesson-body ol{padding-left:20px;margin-bottom:12px}
+.lesson-body li{font-size:.9rem;line-height:1.7;color:#cbd5e1}
+pre{background:#0a0a10;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+code{font-family:'Fira Code','Courier New',monospace;font-size:.82rem;color:#67e8f9;line-height:1.6}
+.tip{background:rgba(8,145,178,.12);border:1px solid rgba(8,145,178,.35);border-radius:8px;padding:14px 16px;margin:16px 0;font-size:.85rem;color:#67e8f9;line-height:1.6}
+.tip strong{display:block;margin-bottom:4px;color:#22d3ee}
+.lab-body h2{font-size:1.1rem;font-weight:800;margin-bottom:16px;color:#22d3ee}
+.lab-task{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.lab-task-num{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#22d3ee;margin-bottom:6px}
+.lab-task h3{font-size:.95rem;font-weight:700;margin-bottom:8px}
+.lab-task p{font-size:.87rem;color:#94a3b8;line-height:1.65}
+.quiz-body h2{font-size:1.1rem;font-weight:800;margin-bottom:20px}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.q-card p{font-size:.92rem;font-weight:600;margin-bottom:14px;line-height:1.5}
+.opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;font-size:.87rem;transition:all .2s}
+.opt:hover{background:rgba(8,145,178,.1);border-color:rgba(8,145,178,.3)}
+.opt.selected{background:rgba(8,145,178,.2);border-color:var(--acc)}
+.opt.correct{background:rgba(5,150,105,.2);border-color:#059669;color:#6ee7b7}
+.opt.wrong{background:rgba(220,38,38,.15);border-color:#dc2626;color:#fca5a5}
+.opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid #2a2a38;flex-shrink:0}
+.opt.selected .opt-dot{border-color:var(--acc);background:var(--acc)}
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;margin-top:20px;flex-wrap:wrap;gap:12px}
+.quiz-score{font-size:.9rem;color:#94a3b8}
+.btn-quiz{background:var(--acc);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer}
+.btn-quiz:hover{background:var(--acc2)}
+.btn-quiz:disabled{opacity:.4;cursor:not-allowed}
+.nav-row{display:flex;gap:12px;margin-top:28px}
+.btn-nav{background:var(--card);border:1px solid var(--border);color:#e2e8f0;padding:10px 22px;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-nav:hover{border-color:var(--acc);color:#67e8f9}
+.btn-nav.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-nav.primary:hover{background:var(--acc2)}
+#cert-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;background:#0f0f13;min-height:100vh}
+#cert-screen.active{display:flex}
+.cert-box{background:linear-gradient(135deg,#1a1a24,#071520);border:2px solid var(--acc);border-radius:20px;padding:50px 60px;max-width:600px;width:100%;text-align:center}
+.cert-box .cert-logo{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.08em;margin-bottom:6px}
+.cert-box .cert-logo .yw{color:#FFD700}.cert-box .cert-logo .wh{color:#fff}
+.cert-top{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#64748b;margin-bottom:24px}
+.cert-box h1{font-size:2rem;font-weight:900;margin-bottom:8px}
+.cert-name{font-size:2rem;color:#67e8f9;font-weight:900;margin:12px 0}
+.cert-meta{font-size:.82rem;color:#64748b;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div id="reg-screen" class="screen active">
+  <div class="reg-box">
+    <h2 data-ui="regTitle">Before You Begin</h2>
+    <p data-ui="regDesc">Enter your details to register. Your progress and quiz scores are tracked and reported to the course administrator.</p>
+    <div class="form-group"><label data-ui="nameLabel">FULL NAME</label><input id="inp-name" type="text" placeholder="Your name"></div>
+    <div class="form-group"><label data-ui="emailLabel">WORK EMAIL</label><input id="inp-email" type="email" placeholder="you@company.com"></div>
+    <button class="btn-primary" onclick="startCourse()" data-ui="startBtn">Start Course →</button>
+    <p class="reg-note" data-ui="regNote">By starting, you agree that your quiz scores, time per module, and completion status will be shared with AlphaDevs administrators.</p>
+  </div>
+</div>
+
+<div id="course-screen" class="screen">
+  <header>
+    <div class="logo" onclick="goHome()">
+      <div>
+        <div class="logo-wordmark"><span class="yw">ALPHA</span><span class="wh">DEVS</span></div>
+        <div class="logo-sub" data-ui="academyLabel">AI ENGINEERING EXPERT</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <button class="lang-btn" onclick="cycleLang()" id="lang-btn">EN</button>
+      <div class="prog-wrap"><span data-ui="progressLabel">Progress</span><div id="hdr-prog"><div id="hdr-prog-bar" style="width:0%"></div></div><span id="hdr-pct">0%</span></div>
+      <span class="badge" data-ui="levelBadge">LEVEL 4</span>
+    </div>
+  </header>
+  <div class="course-body">
+    <nav class="sidebar">
+      <div class="sidebar-title" data-ui="modulesLabel">MODULES</div>
+      <div id="sidebar-list"></div>
+    </nav>
+    <main class="main-content">
+      <div class="mod-header">
+        <h1 id="mod-title"></h1>
+        <div class="mod-meta"><span id="mod-dur"></span></div>
+      </div>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('lesson')" id="tab-lesson" data-ui="lessonTab">📚 Lesson</div>
+        <div class="tab" onclick="switchTab('lab')" id="tab-lab" data-ui="labTab">🧪 Lab</div>
+        <div class="tab" onclick="switchTab('quiz')" id="tab-quiz" data-ui="quizTab">❓ Quiz</div>
+      </div>
+      <div id="panel-lesson" class="panel active lesson-body"></div>
+      <div id="panel-lab" class="panel lab-body"></div>
+      <div id="panel-quiz" class="panel quiz-body"></div>
+      <div class="nav-row">
+        <button class="btn-nav" onclick="prevMod()" data-ui="prevBtn">← Previous</button>
+        <button class="btn-nav primary" onclick="nextMod()" data-ui="nextBtn">Next →</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="cert-screen" class="screen">
+  <div class="cert-box">
+    <div class="cert-logo"><span class="yw">ALPHA</span><span class="wh">DEVS</span></div>
+    <div class="cert-top" data-ui="certTop">CERTIFICATE OF COMPLETION</div>
+    <h1 data-ui="certTitle">AI Engineering Expert</h1>
+    <div class="cert-name" id="cert-name"></div>
+    <div class="cert-meta" id="cert-meta"></div>
+  </div>
+</div>
+
+<script>
+const LANGS=['en','uk','am'];
+let curLang='en';
+const UI_STR={
+  en:{regTitle:'Before You Begin',regDesc:'Enter your details to register. Your progress and quiz scores are tracked and reported to the course administrator.',nameLabel:'FULL NAME',emailLabel:'WORK EMAIL',startBtn:'Start Course →',regNote:'By starting, you agree that your quiz scores, time per module, and completion status will be shared with AlphaDevs administrators.',academyLabel:'AI ENGINEERING EXPERT',progressLabel:'Progress',levelBadge:'LEVEL 4',modulesLabel:'MODULES',lessonTab:'📚 Lesson',labTab:'🧪 Lab',quizTab:'❓ Quiz',prevBtn:'← Previous',nextBtn:'Next →',submitBtn:'Submit Answers',retryBtn:'Retry Quiz',certTop:'CERTIFICATE OF COMPLETION',certTitle:'AI Engineering Expert',passMsg:'✅ Passed! You may proceed.',failMsg:'❌ Score below 70%. Please retry.',scoreLabel:'Score'},
+  uk:{regTitle:'Перед початком',regDesc:'Введіть свої дані. Ваш прогрес передається адміністратору.',nameLabel:'ПОВНЕ ІМʼЯ',emailLabel:'РОБОЧИЙ EMAIL',startBtn:'Розпочати →',regNote:'Ваші результати будуть передані адміністраторам AlphaDevs.',academyLabel:'ЕКСПЕРТ З AI-ІНЖИНІРИНГУ',progressLabel:'Прогрес',levelBadge:'РІВЕНЬ 4',modulesLabel:'МОДУЛІ',lessonTab:'📚 Урок',labTab:'🧪 Лаб',quizTab:'❓ Тест',prevBtn:'← Назад',nextBtn:'Далі →',submitBtn:'Надіслати',retryBtn:'Повторити',certTop:'СЕРТИФІКАТ',certTitle:'Експерт з AI-Інжинірингу',passMsg:'✅ Пройдено!',failMsg:'❌ Нижче 70%. Повторіть.',scoreLabel:'Результат'},
+  am:{regTitle:'Նախքան սկսելը',regDesc:'Մուտքագրեք ձեր տվյալները: Ձեր առաջընթացը կուղարկվի ադմինիստրատորին:',nameLabel:'ԱՆՈՒՆ',emailLabel:'EMAIL',startBtn:'Սկսել →',regNote:'Արդյունքները կբաժանվեն AlphaDevs-ին:',academyLabel:'AI INJENERAKAN EXSPERT',progressLabel:'Arachanth',levelBadge:'MAKARTAK 4',modulesLabel:'MODULNER',lessonTab:'📚 Das',labTab:'🧪 Lab',quizTab:'❓ Quiz',prevBtn:'← Het',nextBtn:'Hajordakně →',submitBtn:'Uğarkel',retryBtn:'Krknel quiz',certTop:'AVARTMAN VKAYAKAN',certTitle:'AI Injenerakan Pordzaghet',passMsg:'✅ Haçoghadzir!',failMsg:'❌ 70%-ic caxr: Krknel:',scoreLabel:'Ardyunq'}
+};
+function cycleLang(){const idx=(LANGS.indexOf(curLang)+1)%LANGS.length;curLang=LANGS[idx];document.getElementById('lang-btn').textContent=curLang.toUpperCase();applyLang();renderModule();renderSidebar();}
+function applyLang(){const u=UI_STR[curLang];document.querySelectorAll('[data-ui]').forEach(el=>{const k=el.getAttribute('data-ui');if(u[k])el.textContent=u[k];});}
+const KEY='dev-ai-exp-v2';
+let state={name:'',email:'',cur:0,progress:[],quizState:{}};
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.name)state=d;}catch(e){}}
+function t(obj){return obj[curLang]||obj['en'];}
+
+const MODS=[
+  {
+    en:{title:'Multi-Agent Orchestration Systems'},
+    uk:{title:'Системи оркестрації мульти-агентів'},
+    am:{title:'Multi-Agent Orchestration Hamakargcher'},
+    duration:'70 min',
+    lesson:`<h2>Multi-Agent Orchestration Systems</h2>
+<p>Single agents hit limits: context windows fill up, tasks grow too complex, and specialization suffers when one agent does everything. Multi-agent orchestration solves this by distributing work across specialized agents that communicate, share state, and hand off tasks.</p>
+<h3>Agent Communication Patterns</h3>
+<p>Two primary patterns govern how agents relate to each other:</p>
+<ul>
+<li><strong>Supervisor / Worker:</strong> A supervisor agent receives the user task, decomposes it, delegates subtasks to specialist worker agents, and synthesizes results. The supervisor controls routing logic and handles failures.</li>
+<li><strong>Peer-to-Peer:</strong> Agents discover each other and negotiate task handoffs directly. More flexible but harder to debug. Suited for pipelines where each agent transforms and passes structured output to the next.</li>
+</ul>
+<h3>LangGraph State Machines</h3>
+<p>LangGraph models multi-agent workflows as directed graphs where nodes are agents (or functions) and edges are transitions. State is typed and shared across all nodes.</p>
+<pre><code>from langgraph.graph import StateGraph, END
+from typing import TypedDict, List
+
+class PipelineState(TypedDict):
+    topic: str
+    research: str
+    analysis: str
+    article: str
+    errors: List[str]
+
+def researcher_agent(state: PipelineState) -> PipelineState:
+    # Calls web search tools, fills state['research']
+    result = llm.invoke(f"Research this topic thoroughly: {state['topic']}")
+    return {**state, 'research': result.content}
+
+def analyst_agent(state: PipelineState) -> PipelineState:
+    result = llm.invoke(f"Analyze: {state['research']}")
+    return {**state, 'analysis': result.content}
+
+def writer_agent(state: PipelineState) -> PipelineState:
+    result = llm.invoke(f"Write article from analysis: {state['analysis']}")
+    return {**state, 'article': result.content}
+
+graph = StateGraph(PipelineState)
+graph.add_node('researcher', researcher_agent)
+graph.add_node('analyst', analyst_agent)
+graph.add_node('writer', writer_agent)
+graph.add_edge('researcher', 'analyst')
+graph.add_edge('analyst', 'writer')
+graph.add_edge('writer', END)
+graph.set_entry_point('researcher')
+pipeline = graph.compile()</code></pre>
+<h3>Tool Calling Chains</h3>
+<p>Agents in a chain pass structured tool outputs as inputs to the next agent. The key discipline: define strict schemas for handoff payloads so agents can be composed and tested independently.</p>
+<pre><code># Researcher outputs structured JSON the analyst expects
+researcher_output_schema = {
+    "type": "object",
+    "properties": {
+        "sources": {"type": "array", "items": {"type": "string"}},
+        "key_facts": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "required": ["sources", "key_facts", "confidence"]
+}</code></pre>
+<h3>Shared Memory Between Agents</h3>
+<p>Agents need a consistent view of task state. Three approaches:</p>
+<ul>
+<li><strong>Graph state (LangGraph):</strong> typed dict passed through the graph — simple, synchronous</li>
+<li><strong>External store (Redis/Postgres):</strong> agents read/write a shared store — enables async and long-running tasks</li>
+<li><strong>Message bus (Kafka/Pub-Sub):</strong> agents publish and subscribe to events — decoupled, scalable, but complex</li>
+</ul>
+<h3>Handling Agent Failures and Retries</h3>
+<pre><code>import time
+
+def run_agent_with_retry(agent_fn, state, max_retries=3, backoff=2):
+    for attempt in range(max_retries):
+        try:
+            return agent_fn(state)
+        except Exception as e:
+            if attempt == max_retries - 1:
+                state['errors'].append(f"{agent_fn.__name__} failed: {str(e)}")
+                return run_fallback_agent(state)  # structured fallback
+            time.sleep(backoff ** attempt)
+    return state</code></pre>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "Review this LangGraph multi-agent pipeline for failure modes. Which agent is the single point of failure? How should I add checkpointing so the pipeline can resume from the last successful node if it crashes mid-run?"</div>`,
+    lab:`<h2>Lab: Multi-Agent Orchestration Systems</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>Supervisor + Sub-Agent Pipeline</h3><p>Build a supervisor agent that receives a research topic and delegates to 2 specialist sub-agents: a Researcher (uses web search tools) and a Summarizer (condenses findings). Use LangGraph. The supervisor decides routing based on task type. Test with 3 different topic categories.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Shared State with Conflict Resolution</h3><p>Implement a shared state object in Redis that 2 agents write to concurrently. Add optimistic locking: if an agent detects a write conflict (version mismatch), it re-reads state and retries. Log all conflicts. Verify no data is lost under concurrent writes.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Retry Logic and Fallback Behavior</h3><p>Add retry logic to each agent in your pipeline: exponential backoff (1s, 2s, 4s), max 3 attempts. If all retries fail, route to a fallback agent that returns a safe partial result rather than crashing the pipeline. Test by injecting random failures at 50% rate.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Streaming Intermediate Results</h3><p>Modify your pipeline to stream intermediate agent outputs to the client in real-time using Server-Sent Events (SSE). Each agent should emit a progress event when it starts and completes. Build a simple UI that displays each agent's status and partial output as the pipeline runs.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the primary advantage of a supervisor/worker agent pattern?',opts:['Each agent runs independently with no coordination','The supervisor routes tasks to specialist agents, reducing prompt complexity and improving reliability','Agents share a single context window','All agents run simultaneously without coordination'],ans:1},
+        {q:'Why is shared memory management critical in multi-agent systems?',opts:['To reduce API costs','Agents need a consistent view of task state — without coordination, agents produce conflicting or redundant outputs','It makes agents faster','It removes the need for tool calling'],ans:1},
+        {q:'What does LangGraph\'s state machine provide for multi-agent workflows?',opts:['A UI for agents','Explicit control over agent transitions, checkpointing, and conditional routing — enabling reliable, inspectable workflows','Automatic model selection','A vector database'],ans:1},
+        {q:'What is the correct approach to handle agent failures in production?',opts:['Ignore failures','Implement retry with exponential backoff, fallback agents, and structured error propagation — never let a single agent failure cascade silently','Restart the entire pipeline','Log errors only'],ans:1},
+        {q:'Why is streaming intermediate results important in multi-agent pipelines?',opts:['It reduces cost','Users get real-time feedback and can detect issues early — long-running silent pipelines create poor UX and debugging difficulty','It improves accuracy','It reduces agent count'],ans:1}
+      ],
+      uk:[
+        {q:'Яка основна перевага патерну supervisor/worker?',opts:['Кожен агент працює незалежно без координації','Supervisor маршрутизує задачі до спеціалізованих агентів, зменшуючи складність промптів і підвищуючи надійність','Агенти поділяють єдине контекстне вікно','Всі агенти працюють одночасно без координації'],ans:1},
+        {q:'Чому управління спільною памʼяттю критично важливе в мульти-агентних системах?',opts:['Щоб зменшити витрати на API','Агентам потрібен узгоджений стан задачі — без координації агенти виробляють суперечливі або надлишкові результати','Це робить агентів швидшими','Це усуває потребу у виклику інструментів'],ans:1},
+        {q:'Що надає State Machine LangGraph для мульти-агентних воркфлоу?',opts:['Інтерфейс для агентів','Явний контроль над переходами агентів, чекпоінтингом і умовним маршрутуванням','Автоматичний вибір моделі','Векторну базу даних'],ans:1},
+        {q:'Який правильний підхід до обробки збоїв агентів у продакшні?',opts:['Ігнорувати збої','Реалізувати retry з exponential backoff, fallback-агентами та структурованим поширенням помилок','Перезапустити весь пайплайн','Лише логувати помилки'],ans:1},
+        {q:'Чому стрімінг проміжних результатів важливий у мульти-агентних пайплайнах?',opts:['Зменшує витрати','Користувачі отримують зворотній зв\'язок у реальному часі та можуть рано виявити проблеми','Підвищує точність','Зменшує кількість агентів'],ans:1}
+      ],
+      am:[
+        {q:'Vor e supervisor/worker agent pattern-i hashvarakakan artonyuně:',opts:['Amsyur agent-ě ankaхut e asxatoum aranc koordinatsia','Supervisor-ě tasks-ě matruchutyun e mütexassis agent-neri, nvaziluv prompt-i barchutyouně yev bazhakanacneluv hushimutiuně','Agent-nerě mek context window-um en','Bolor agent-nerě mekabanabar asxatoum en aranc koordinatsia'],ans:1},
+        {q:'Ine shared memory-i kararavarutyouně kritikakan e multi-agent hamakargcherum:',opts:['API arcunqnerě nvaziluě','Agent-nerě petakum en unenal task state-i hamabar tesq — aranc koordinatsia agent-nerě artyaqum en heravorakan kam avelor arvardner','Ayն agent-nerě aveli aragon e anum','Ayն tool calling-i karotchě hatscum e'],ans:1},
+        {q:'Inch e talis LangGraph-i state machine-ě multi-agent workflow-neri hamar:',opts:['UI agent-neri hamar','Haçt varavarutyun agent-i anctumeri vra, checkpointing yev pahanakavor uğhğordutyun — hushimeli, inknabacan workflow-ner hamakargelu hamar','Avtomatik model-i entrutyun','Vector database'],ans:1},
+        {q:'Vor e chishd mechumě agent-neri texaghutyunneri hamar production-um:',opts:['Antesel texaghutyunnery','Implementel retry exponential backoff-ov, fallback agent-nerov yev karucer skhalner tarashrumutyamb — amsyur mek agent-i texaghutyouně bazmapakhadzayin caşkacum tanel','Vercnord amshumlě noric asxatel','Miayn skhalner logel'],ans:1},
+        {q:'Ine mijin ardjunqneri streaming-ě karevorum e multi-agent pipeline-nerum:',opts:['Ayн arcunqnerě nvazilutyun e beru','Ogtaverqnerě irakannish ardzaganutyun en stanum yev karogh en khndirner vağhacnel — erkar lrutyun pipeline-nerě vec lav UX yev debug-i dashvarуtyun en steghutyun','Ayн chishtaghtyouně bariatsnum e','Ayн agent-neri kanakě nvazilutyun e beru'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'Multimodal AI Development'},
+    uk:{title:'Розробка мультимодального AI'},
+    am:{title:'Multimodal AI Mshakuyt'},
+    duration:'65 min',
+    lesson:`<h2>Building with Vision, Audio, and Documents</h2>
+<p>Multimodal AI extends LLMs beyond text. GPT-4V, Claude Vision, and Gemini accept images, PDFs, and audio. The engineering challenge is not just calling the API — it is building reliable pipelines that handle mixed inputs, validate structured outputs, and scale across thousands of documents.</p>
+<h3>Vision Models: Image + Text Prompting</h3>
+<pre><code>import anthropic
+import base64
+
+def analyze_invoice(image_path: str) -> dict:
+    client = anthropic.Anthropic()
+    with open(image_path, 'rb') as f:
+        image_data = base64.standard_b64encode(f.read()).decode('utf-8')
+
+    response = client.messages.create(
+        model='claude-opus-4-5',
+        max_tokens=1024,
+        messages=[{
+            'role': 'user',
+            'content': [
+                {
+                    'type': 'image',
+                    'source': {'type': 'base64', 'media_type': 'image/jpeg', 'data': image_data}
+                },
+                {
+                    'type': 'text',
+                    'text': '''Extract from this invoice as JSON:
+{
+  "vendor_name": string,
+  "invoice_number": string,
+  "date": "YYYY-MM-DD",
+  "total_amount": number,
+  "currency": string,
+  "line_items": [{"description": string, "quantity": number, "unit_price": number}]
+}
+Return ONLY valid JSON. No explanation.'''
+                }
+            ]
+        }]
+    )
+    import json
+    return json.loads(response.content[0].text)</code></pre>
+<h3>Structured Extraction Validation</h3>
+<p>Vision models hallucinate. Always validate extracted data against expected formats and business rules:</p>
+<pre><code>from pydantic import BaseModel, validator
+from typing import List, Optional
+from datetime import date
+
+class LineItem(BaseModel):
+    description: str
+    quantity: float
+    unit_price: float
+
+class Invoice(BaseModel):
+    vendor_name: str
+    invoice_number: str
+    date: date
+    total_amount: float
+    currency: str
+    line_items: List[LineItem]
+
+    @validator('total_amount')
+    def validate_total(cls, v, values):
+        if 'line_items' in values:
+            expected = sum(i.quantity * i.unit_price for i in values['line_items'])
+            if abs(v - expected) > 0.01:
+                raise ValueError(f'Total {v} does not match line items sum {expected}')
+        return v
+
+def safe_extract(raw_json: str) -> Invoice:
+    data = json.loads(raw_json)
+    return Invoice(**data)  # raises ValidationError if invalid</code></pre>
+<h3>Audio Transcription with Whisper</h3>
+<pre><code>import openai
+
+def transcribe_and_summarize(audio_path: str) -> dict:
+    client = openai.OpenAI()
+
+    # Step 1: Transcribe with Whisper
+    with open(audio_path, 'rb') as audio_file:
+        transcript = client.audio.transcriptions.create(
+            model='whisper-1',
+            file=audio_file,
+            response_format='verbose_json',  # includes word timestamps
+            language='en'
+        )
+
+    # Step 2: Structure with LLM
+    summary = client.chat.completions.create(
+        model='gpt-4o',
+        messages=[{
+            'role': 'user',
+            'content': f'Summarize this meeting transcript into: key decisions, action items, and open questions.\n\nTranscript:\n{transcript.text}'
+        }]
+    )
+    return {'transcript': transcript.text, 'summary': summary.choices[0].message.content}</code></pre>
+<h3>Processing High-Resolution Images</h3>
+<p>Vision models have token limits for image processing. For high-resolution documents:</p>
+<ul>
+<li><strong>Tile large images:</strong> Split into overlapping tiles, process each, merge results</li>
+<li><strong>Resize strategically:</strong> Reduce to the minimum resolution that preserves readable text</li>
+<li><strong>Use detail parameter:</strong> OpenAI Vision accepts <code>detail: "low"</code> (fast/cheap) or <code>detail: "high"</code> (accurate)</li>
+<li><strong>Page-by-page for PDFs:</strong> Convert each page to image, process sequentially or in parallel batches</li>
+</ul>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "I am building a multimodal pipeline that extracts data from scanned invoices. Vision model accuracy is 87% on my test set. What are the most common failure modes for vision-based document extraction, and what validation and fallback strategies should I implement to reach 99% accuracy?"</div>`,
+    lab:`<h2>Lab: Multimodal AI Development</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>Invoice Extraction Pipeline</h3><p>Build a document analyzer that extracts structured data from invoice images. Use Claude Vision or GPT-4V. Validate output with Pydantic — reject any extraction where the line item totals do not match the invoice total within 1%. Test with 10 varied invoice samples (different layouts, languages, currencies).</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Multimodal QA Bot</h3><p>Create a QA bot that accepts an uploaded image and a text question, then answers based on image content. Build a simple web UI with file upload. Add conversation history so follow-up questions reference prior context. Test with 5 different image types: charts, diagrams, screenshots, photos, and handwritten notes.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Audio-to-Report Pipeline</h3><p>Build an audio-to-report pipeline: user uploads an MP3 or WAV meeting recording, Whisper transcribes it, an LLM extracts: key decisions, action items (with owner and due date), open questions, and a 3-sentence executive summary. Output as a structured JSON report and a formatted HTML page.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Accessibility Description Generator</h3><p>Build a batch pipeline that processes a folder of images and generates alt-text and accessibility descriptions for each. Use vision model with a prompt that follows WCAG alt-text guidelines. Handle images with people (describe role/action, not identity), charts (describe data, not just title), and decorative images (return empty alt-text). Process 50 images and measure cost and latency.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the key difference between text-only and multimodal prompting?',opts:['Multimodal prompting is slower','Multimodal prompting passes image, audio, or document inputs alongside text — enabling models to reason over non-text content that text-only prompts cannot access','Multimodal models are less accurate','Multimodal prompting costs less'],ans:1},
+        {q:'Why must you validate structured extraction outputs from vision models?',opts:['Validation is optional','Vision models hallucinate — they may invent field values, misread numbers, or return inconsistent totals — validation catches errors before they propagate downstream','Validation makes models faster','Validation improves model accuracy'],ans:1},
+        {q:'What is the recommended approach for processing high-resolution images with vision models?',opts:['Always use the lowest resolution','Tile large images into overlapping segments, resize to the minimum resolution that preserves text readability, and use appropriate detail settings — never blindly pass full-resolution images','Reject high-resolution images','Convert all images to black and white first'],ans:1},
+        {q:'How should you handle vision model hallucinations in production pipelines?',opts:['Accept all outputs as correct','Implement schema validation (Pydantic), business rule checks, confidence scoring where available, and human-in-the-loop review for low-confidence extractions','Retry indefinitely until correct','Discard vision models and use OCR only'],ans:1},
+        {q:'What makes Whisper+LLM pipelines superior to transcription-only solutions?',opts:['They are cheaper','Whisper provides accurate transcription while the LLM adds structure — extracting action items, decisions, and summaries that raw transcription text cannot provide','They are faster','They require less storage'],ans:1}
+      ],
+      uk:[
+        {q:'Яка ключова різниця між text-only та multimodal промптингом?',opts:['Мультимодальний промптинг повільніший','Мультимодальний промптинг передає зображення, аудіо або документи поряд із текстом — дозволяючи моделям міркувати над нетекстовим контентом','Мультимодальні моделі менш точні','Мультимодальний промптинг дешевший'],ans:1},
+        {q:'Чому потрібно валідувати структуровані виходи від vision-моделей?',opts:['Валідація необов\'язкова','Vision-моделі галюцинують — можуть вигадувати значення полів, неправильно читати числа — валідація ловить помилки до поширення','Валідація прискорює моделі','Валідація підвищує точність моделі'],ans:1},
+        {q:'Який рекомендований підхід для обробки зображень високої роздільної здатності?',opts:['Завжди використовувати найнижчу роздільну здатність','Розбивати великі зображення на перекриваючі сегменти, масштабувати до мінімальної роздільної здатності, що зберігає читабельність тексту','Відхиляти зображення високої роздільної здатності','Конвертувати всі зображення в чорно-біле'],ans:1},
+        {q:'Як обробляти галюцинації vision-моделей у продакшн-пайплайнах?',opts:['Приймати всі виходи як правильні','Реалізувати валідацію схеми, перевірки бізнес-правил, оцінку впевненості та human-in-the-loop для низькоупевнених екстракцій','Повторювати нескінченно до правильного результату','Відмовитися від vision-моделей та використовувати лише OCR'],ans:1},
+        {q:'Чому пайплайни Whisper+LLM кращі за транскрипцію-only рішення?',opts:['Вони дешевші','Whisper забезпечує точну транскрипцію, а LLM додає структуру — видобуваючи дії, рішення та резюме, що неможливо отримати з сирого тексту','Вони швидші','Вони потребують менше сховища'],ans:1}
+      ],
+      am:[
+        {q:'Vor e hashvarakakan tarberutyouně text-only yev multimodal prompting-i mej:',opts:['Multimodal prompting-ě dand e','Multimodal prompting-ě text-i koxqin patakernerov nerkarutyunner, zvuk kam dokumentner e uzharkerum — modelnerě karogh en che-text kontenti vra tartanel','Multimodal model-nerě patuytem en','Multimodal prompting-ě aveli eckan e'],ans:1},
+        {q:'Ine petakum e validation anel strukturavorum ardjunqnerě vision model-nerc:',opts:['Validation-ě chpetakanutyun e','Vision model-nerě hallucination en anum — karoghi en dashter arenum, skhalkachum taratsner — validation-ě skhalnerě bayts e nerkarutyunneri yev kaghaparvumen dramatik drsnelu nakhadzain','Validation-ě model-nerě aragon e anum','Validation-ě model-i chishtaghtyouně bariatsnum e'],ans:1},
+        {q:'Vor e arajiarkakan mechumě bardzr resolution-ov nerkarutyunneri mshakutyan hamar:',opts:['Mishtap amena caxr resolution-ě ogtaharvelu','Mets nerkarutyunneri tikachadrum yev text-i chetutyan hamakargelu minimum resolution-ov maserin hamapataschanel','Bardzr resolution nerkarutyunnery merjel','Bolor nerkarutyunnery sev-spitak darakanernel'],ans:1},
+        {q:'Inch petq e anel vision model-i hallucination-neri het production pipeline-nerum:',opts:['Bolor ardjunqnerě uchghel ev chishd e anhesel','Implementel schema validation, biznes kargy checkneri, hamozakanutyan gnahatakanutyan yev human-in-the-loop caxr hamozakanutyan extraction-neri hamar','Anverelorn nerenkel chishd ardjunqi hamar','Vision model-nerě kakhel yev miayn OCR ogtaharvelu'],ans:1},
+        {q:'Inch e danum Whisper+LLM pipeline-nerě gereut transcription-only luzumneric:',opts:['Aveli eckan en','Whisper-ě chishd transcription e talis yev LLM-ě karucvatsutun e avelacnum — hanel action items, voroshumnery yev amsafarakhumnery voronq text-ic mi karogh en stacvel','Aveli aragon en','Aveli goxk petakum en'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'Enterprise LLM Deployment & Private Cloud'},
+    uk:{title:'Корпоративне розгортання LLM та приватна хмара'},
+    am:{title:'Enterprise LLM Deployment ev Private Cloud'},
+    duration:'70 min',
+    lesson:`<h2>Self-Hosting LLMs for Enterprise</h2>
+<p>Enterprises with strict data residency requirements, regulated industries (healthcare, finance, defense), or high-volume workloads often cannot use public LLM APIs. The alternative: self-hosted LLMs using vLLM or Ollama, running on your own GPU infrastructure.</p>
+<h3>On-Premise vs Cloud LLMs</h3>
+<ul>
+<li><strong>Public API (OpenAI, Anthropic):</strong> Zero ops, latest models, but data leaves your network. Unsuitable for PII, PHI, classified data.</li>
+<li><strong>Self-hosted (vLLM, Ollama):</strong> Full data control, predictable cost at scale, but requires GPU hardware and MLOps expertise.</li>
+<li><strong>Cloud-hosted private (AWS Bedrock, Azure OpenAI):</strong> Middle ground — cloud provider hosts the model in your VPC, data stays in your account.</li>
+</ul>
+<h3>Running Models with Ollama</h3>
+<pre><code># Pull and run a quantized model locally
+ollama pull llama3:8b-instruct-q4_K_M  # 4-bit quantized, ~5GB
+
+# Start Ollama server (exposes OpenAI-compatible API on port 11434)
+ollama serve
+
+# Custom system prompt via Modelfile
+cat > Modelfile << 'EOF'
+FROM llama3:8b-instruct-q4_K_M
+SYSTEM "You are a helpful assistant for Acme Corp. Never discuss competitors. Always respond in formal English."
+PARAMETER temperature 0.3
+PARAMETER num_ctx 8192
+EOF
+ollama create acme-assistant -f Modelfile
+ollama run acme-assistant</code></pre>
+<h3>vLLM for Production Inference</h3>
+<pre><code># Deploy vLLM with tensor parallelism across 2 GPUs
+python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Meta-Llama-3-8B-Instruct \
+  --tensor-parallel-size 2 \
+  --quantization awq \
+  --max-model-len 8192 \
+  --gpu-memory-utilization 0.90 \
+  --port 8000
+
+# Client call — OpenAI-compatible
+from openai import OpenAI
+client = OpenAI(base_url='http://localhost:8000/v1', api_key='dummy')
+response = client.chat.completions.create(
+    model='meta-llama/Meta-Llama-3-8B-Instruct',
+    messages=[{'role': 'user', 'content': 'Explain quantization in LLMs'}]
+)</code></pre>
+<h3>Quantization: Precision vs Performance</h3>
+<p>Quantization reduces model precision to shrink VRAM requirements and boost throughput:</p>
+<ul>
+<li><strong>Full precision (FP32/BF16):</strong> Best quality, highest VRAM. Llama 3 8B = ~16GB</li>
+<li><strong>8-bit (GGUF Q8):</strong> ~5% quality loss, half the VRAM. 8B model = ~8GB</li>
+<li><strong>4-bit (AWQ/GGUF Q4):</strong> ~10-15% quality loss, quarter the VRAM. 8B model = ~5GB</li>
+<li><strong>Rule of thumb:</strong> Use 4-bit for development and cost optimization, 8-bit for production where quality matters</li>
+</ul>
+<h3>Intelligent Routing: On-Prem vs Cloud</h3>
+<pre><code>class LLMRouter:
+    def __init__(self):
+        self.onprem = OpenAI(base_url='http://gpu-server:8000/v1', api_key='internal')
+        self.cloud = anthropic.Anthropic()
+
+    def classify_sensitivity(self, text: str) -> str:
+        # Check for PII patterns
+        import re
+        pii_patterns = [r'\b\d{3}-\d{2}-\d{4}\b', r'\b[A-Z]{2}\d{6}\b']  # SSN, passport
+        for p in pii_patterns:
+            if re.search(p, text): return 'sensitive'
+        sensitive_keywords = ['confidential', 'internal only', 'patient', 'medical']
+        if any(k in text.lower() for k in sensitive_keywords): return 'sensitive'
+        return 'public'
+
+    def route(self, messages: list) -> str:
+        full_text = ' '.join(m['content'] for m in messages)
+        if self.classify_sensitivity(full_text) == 'sensitive':
+            return self.call_onprem(messages)
+        return self.call_cloud(messages)</code></pre>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "I need to decide between self-hosting Llama 3 70B vs using the Claude API for our enterprise use case. We process 1 million tokens per day with strict data residency requirements. Analyze the cost, operational complexity, and quality trade-offs. What is the break-even point for self-hosting?"</div>`,
+    lab:`<h2>Lab: Enterprise LLM Deployment</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>Deploy Local LLM with Ollama</h3><p>Deploy a quantized LLM locally using Ollama (Llama 3 8B or Mistral 7B, Q4 quantization). Create a custom Modelfile with a company-specific system prompt, temperature 0.3, and 8K context. Test via the Ollama CLI and via direct HTTP API calls. Measure: time-to-first-token and tokens/second throughput.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>vLLM with Load Balancer</h3><p>Set up vLLM with 2 replicas in Docker Compose, fronted by an Nginx load balancer using round-robin routing. Both replicas serve the same model (AWQ quantized). Test load distribution by sending 100 concurrent requests and verifying they split between replicas. Add health check endpoints.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Quantization Benchmark</h3><p>Benchmark the same model at 3 precision levels: FP16, 8-bit (Q8), and 4-bit (Q4). Measure for each: VRAM usage (GB), tokens/second throughput, and quality on 10 standardized test prompts (evaluate with an LLM judge). Create a comparison table and recommend the best precision for your hardware budget.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Intelligent Routing Layer</h3><p>Build a routing proxy that sits in front of both your on-prem Ollama instance and the cloud API. Route based on: PII detection (regex + keyword), data classification header from the calling application, and fallback to cloud if on-prem is overloaded. Log every routing decision with reason. Verify sensitive queries never reach the cloud endpoint.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the primary reason enterprises self-host LLMs instead of using public APIs?',opts:['Self-hosted models are more capable','Data residency and privacy requirements — regulated industries cannot send sensitive data to external providers','Self-hosting is always cheaper','Public APIs have rate limits'],ans:1},
+        {q:'What does quantization achieve in LLM deployment?',opts:['It improves model accuracy','It reduces model precision (e.g., FP16 to INT4) to shrink VRAM requirements and increase inference throughput, with a controlled quality trade-off','It increases context window size','It enables multi-GPU training'],ans:1},
+        {q:'When should you use vLLM over Ollama for production deployments?',opts:['Never — Ollama is always better','vLLM is designed for high-throughput production serving with tensor parallelism, continuous batching, and PagedAttention — use it when you need to serve many concurrent users efficiently','They are identical tools','Ollama supports more models'],ans:1},
+        {q:'What is the correct routing criterion for on-prem vs cloud LLM decisions?',opts:['Always use cloud','Route based on data sensitivity — PII, PHI, confidential data goes to on-prem; general public queries can use cloud APIs — never based on cost alone','Always use on-prem','Route based on query length only'],ans:1},
+        {q:'What is the trade-off of 4-bit quantization compared to full precision?',opts:['No trade-off — identical quality','Approximately 10-15% quality degradation in exchange for 4x reduction in VRAM requirements and significantly higher inference throughput','Higher quality but slower','More expensive to run'],ans:1}
+      ],
+      uk:[
+        {q:'Яка основна причина, чому підприємства самостійно розгортають LLM замість публічних API?',opts:['Самостійні моделі більш потужні','Вимоги до зберігання даних та конфіденційності — регульовані галузі не можуть передавати конфіденційні дані зовнішнім провайдерам','Самостійне розгортання завжди дешевше','Публічні API мають ліміти запитів'],ans:1},
+        {q:'Що досягає квантизація при розгортанні LLM?',opts:['Підвищує точність моделі','Зменшує точність моделі (наприклад, з FP16 до INT4), щоб скоротити вимоги до VRAM та збільшити пропускну здатність інференсу з контрольованим компромісом якості','Збільшує розмір контекстного вікна','Дозволяє тренування на кількох GPU'],ans:1},
+        {q:'Коли слід використовувати vLLM замість Ollama для продакшн-розгортань?',opts:['Ніколи — Ollama завжди краще','vLLM розроблено для високопропускного продакшн-серверингу з tensor parallelism та continuous batching — використовуйте, коли потрібно обслуговувати багато одночасних користувачів','Це ідентичні інструменти','Ollama підтримує більше моделей'],ans:1},
+        {q:'Який правильний критерій маршрутизації для рішень on-prem vs cloud LLM?',opts:['Завжди використовувати хмару','Маршрутизація на основі чутливості даних — PII, PHI, конфіденційні дані йдуть на on-prem; загальні публічні запити можуть використовувати cloud API','Завжди використовувати on-prem','Маршрутизація лише на основі довжини запиту'],ans:1},
+        {q:'Який компроміс 4-бітного квантування порівняно з повною точністю?',opts:['Немає компромісу — ідентична якість','Приблизно 10-15% деградації якості в обмін на 4-кратне зменшення вимог до VRAM та значно вищу пропускну здатність інференсу','Вища якість, але повільніше','Дорожче у роботі'],ans:1}
+      ],
+      am:[
+        {q:'Vor e hashvarakakan patcharaě inknabacan LLM-ner dzerkavarutyoun anel arajin API-ner ogtaharvelu poxaren:',opts:['Inknabacan model-nerě aveli kakhashern en','Data residency yev gakhtniyutyan petahanjner — karavarutyoun arandznahatkumnery karoghi en zguyhkanner chertakner tekakayin datayi external providers-i','Inknabacan dzerkavarutyouně mshtak aveli eckan e','Arajin API-nerě query-neri sitaganner ounin'],ans:1},
+        {q:'Inch e karnum quantization-ě LLM deployment-um:',opts:['Bariatsnum e model-i chishtaghtyouně','Nvazilutyun e beru model-i точность (FP16-ic INT4), VRAM petahanjnerě nvaziluě yev inference-i antskalutyouně metsatsneluě — kontroluats orakutyuni kompromisov','Avlaciutyoun e beru context window-i masovabarě','Menak GPU training himnadroutyamb e tatumutyan'], ans:1},
+        {q:'Verb petq e vLLM ogtaharvelu Ollama-i poxaren production deployment-nerum:',opts:['Heche — Ollama mishtap lav e','vLLM-ě bajnorthagoin production serving-i hamar e nakhagatsats tensor parallelism ev continuous batching-ov — ogtaharvir erb petakum e shat zhuzhakan ogtaverqneri arin haskacneluě','Ays nuynayin instrumentner en','Ollama aveli shat model-ner e sahmanafakum'],ans:1},
+        {q:'Vor e chishd routing criterion-ě on-prem ev cloud LLM voroshumneri hamar:',opts:['Mishtap ampert ogtaharvelu','Routing-ě data-i hamozakanutyyan vra khndirneri himan vra — PII, PHI, encrypted data-ery on-prem-i ken; haynabar arajin query-nery karogh en cloud API ogtaharvelu','Mishtap on-prem ogtaharvelu','Routing-ě miayn query-i erkaroutyan vra'],ans:1},
+        {q:'Vor e 4-bit quantization-i kompromisě liaragrutyyan hamarakelutyamb:',opts:['Kompromis chka — nuynayin orakutyoun','Mayis 10-15% orakutyuni anonkum VRAM petahanjneri 4-apakyan nvazilutyunits yev sharjvoraban karmirats inference-i antskalutyamb','Bardzr orakutyoun bayts aveli dand e','Aveli shtap e exel'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'Advanced Prompt Engineering & DSPy'},
+    uk:{title:'Просунута інженерія промптів та DSPy'},
+    am:{title:'Arajinatsvats Prompt Engineering ev DSPy'},
+    duration:'60 min',
+    lesson:`<h2>Systematic Prompt Optimization</h2>
+<p>Artisanal prompt engineering — manually tweaking prompts based on intuition — does not scale. DSPy (Declarative Self-improving Python) treats prompts as learnable parameters and automatically optimizes them against labeled examples, replacing guesswork with measurement.</p>
+<h3>Chain-of-Thought vs Tree-of-Thought vs ReAct</h3>
+<ul>
+<li><strong>Chain-of-Thought (CoT):</strong> "Think step by step." Forces the model to reason sequentially. Best for multi-step math, logic, and deduction.</li>
+<li><strong>Tree-of-Thought (ToT):</strong> Explores multiple reasoning branches and selects the best. Higher cost, useful for creative or ambiguous problems where the first approach may not be optimal.</li>
+<li><strong>ReAct (Reason + Act):</strong> Interleaves reasoning with tool calls. Agent thinks → calls tool → observes result → thinks again. Best for agentic tasks requiring external information.</li>
+</ul>
+<h3>DSPy: Programmatic Prompt Optimization</h3>
+<pre><code>import dspy
+
+# Define a typed signature — DSPy infers the prompt structure
+class ClassifySupport(dspy.Signature):
+    """Classify a customer support ticket into a category."""
+    ticket_text: str = dspy.InputField(desc="Raw customer support message")
+    category: str = dspy.OutputField(desc="One of: billing, technical, account, general")
+
+# Create a module using Chain-of-Thought reasoning
+classifier = dspy.ChainOfThought(ClassifySupport)
+
+# Configure the LLM
+lm = dspy.LM('openai/gpt-4o-mini', temperature=0.0)
+dspy.configure(lm=lm)
+
+# Run inference
+result = classifier(ticket_text="I was charged twice for last month's subscription")
+print(result.category)  # "billing"
+print(result.reasoning)  # Step-by-step reasoning</code></pre>
+<h3>Auto-Optimizing with DSPy Teleprompters</h3>
+<pre><code>from dspy.teleprompt import BootstrapFewShot
+
+# Labeled training examples
+trainset = [
+    dspy.Example(ticket_text="App crashes on login", category="technical").with_inputs("ticket_text"),
+    dspy.Example(ticket_text="Wrong charge on statement", category="billing").with_inputs("ticket_text"),
+    # ... 20 examples total
+]
+
+# Define evaluation metric
+def accuracy_metric(example, prediction, trace=None):
+    return example.category == prediction.category
+
+# Optimize: DSPy selects the best few-shot examples automatically
+optimizer = BootstrapFewShot(metric=accuracy_metric, max_bootstrapped_demos=4)
+optimized_classifier = optimizer.compile(classifier, trainset=trainset)
+# optimized_classifier now has auto-selected few-shot examples baked in</code></pre>
+<h3>Structured Output Enforcement</h3>
+<pre><code>from pydantic import BaseModel
+from openai import OpenAI
+from typing import Literal
+
+class TicketClassification(BaseModel):
+    category: Literal['billing', 'technical', 'account', 'general']
+    priority: Literal['low', 'medium', 'high', 'critical']
+    confidence: float  # 0.0 to 1.0
+    reasoning: str
+
+client = OpenAI()
+response = client.beta.chat.completions.parse(
+    model='gpt-4o',
+    messages=[{'role': 'user', 'content': f'Classify: {ticket_text}'}],
+    response_format=TicketClassification
+)
+classification = response.choices[0].message.parsed
+# classification.category is guaranteed to be a valid enum value</code></pre>
+<h3>Prompt Versioning and A/B Testing</h3>
+<pre><code># Track prompt versions as code
+PROMPT_REGISTRY = {
+    'classifier_v1': {
+        'system': 'Classify customer tickets.',
+        'hash': 'abc123',
+        'created': '2025-01-01',
+        'eval_score': 0.82
+    },
+    'classifier_v2': {
+        'system': 'You are an expert support analyst. Classify tickets with high precision.',
+        'hash': 'def456',
+        'created': '2025-03-01',
+        'eval_score': 0.91
+    }
+}
+# A/B test: 10% on v2, 90% on v1
+def get_prompt(user_id: str) -> dict:
+    import hashlib
+    bucket = int(hashlib.md5(user_id.encode()).hexdigest(), 16) % 100
+    return PROMPT_REGISTRY['classifier_v2'] if bucket < 10 else PROMPT_REGISTRY['classifier_v1']</code></pre>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "I have a DSPy classifier with 82% accuracy on my golden test set. Here are 10 examples it got wrong: [paste examples]. Analyze the failure patterns. Are they solvable with better few-shot examples, a better prompt structure, or do I need a different model?"</div>`,
+    lab:`<h2>Lab: Advanced Prompt Engineering & DSPy</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>DSPy Auto-Optimization</h3><p>Implement DSPy to auto-optimize a classification prompt using 20 labeled examples. Task: classify customer support tickets into 4 categories. Start with a zero-shot baseline, measure accuracy on a 10-example test set. Then run BootstrapFewShot optimization. Measure accuracy improvement. Document which few-shot examples DSPy selected and why they improved performance.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Prompt A/B Testing Framework</h3><p>Build a prompt A/B testing framework: maintain a prompt registry with version metadata and eval scores. Run two prompt variants on a 50-example golden dataset, calculate accuracy for each, and output a statistical significance test (chi-squared or t-test). The framework should automatically recommend the winner and flag if the difference is not statistically significant.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Few-Shot Example Retrieval</h3><p>Create a few-shot example retrieval system: embed your labeled examples with a sentence transformer. At inference time, embed the incoming query and retrieve the 3 most semantically similar examples as few-shot context. Compare static few-shot (always same examples) vs dynamic few-shot (retrieved examples) on 20 test queries. Measure accuracy and latency for both approaches.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Structured Output with Retry</h3><p>Build a structured output pipeline using Pydantic models and the OpenAI JSON mode. Define a schema with 5 fields including nested objects and enum constraints. Add retry logic: if the model returns invalid JSON or schema violations, retry up to 3 times with the validation error appended to the prompt. Log retry rates and measure success rate across 50 test inputs.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the core advantage of DSPy over manual prompt engineering?',opts:['DSPy generates cheaper prompts','DSPy treats prompts as learnable parameters and automatically optimizes them against labeled examples — replacing intuition-based tweaking with systematic measurement','DSPy requires no examples','DSPy only works with GPT-4'],ans:1},
+        {q:'When is Tree-of-Thought prompting most appropriate?',opts:['For simple classification tasks','For ambiguous or creative problems where exploring multiple reasoning paths and selecting the best one outweighs the higher cost','For all production use cases','For tasks requiring real-time responses'],ans:1},
+        {q:'What is the key benefit of structured output enforcement (JSON mode, Pydantic)?',opts:['It makes models faster','It guarantees outputs conform to a schema — preventing downstream parsing failures and ensuring type safety without fragile regex extraction','It reduces token usage','It improves model reasoning'],ans:1},
+        {q:'What does dynamic few-shot retrieval improve over static few-shot selection?',opts:['It reduces API costs','Relevance — selecting examples semantically similar to the current query helps the model generalize better than always using the same fixed examples','It removes the need for labeled data','It works for any task automatically'],ans:1},
+        {q:'What information should a prompt version registry store?',opts:['Only the prompt text','Prompt text, version hash, creation date, eval score on golden dataset, and deployment status — enabling rollback, comparison, and accountability','Only the eval score','Only the author name'],ans:1}
+      ],
+      uk:[
+        {q:'Яка основна перевага DSPy над ручною інженерією промптів?',opts:['DSPy генерує дешевші промпти','DSPy розглядає промпти як навчувані параметри та автоматично оптимізує їх на основі розмічених прикладів — замінюючи інтуїтивне налаштування систематичним вимірюванням','DSPy не потребує прикладів','DSPy працює лише з GPT-4'],ans:1},
+        {q:'Коли найбільш доречний Tree-of-Thought промптинг?',opts:['Для простих задач класифікації','Для неоднозначних або творчих задач, де дослідження кількох шляхів міркування та вибір найкращого виправдовує вищу вартість','Для всіх продакшн-випадків','Для задач, що вимагають відповідей у реальному часі'],ans:1},
+        {q:'Яка ключова перевага примусового структурованого виводу (JSON mode, Pydantic)?',opts:['Це робить моделі швидшими','Гарантує відповідність виводів схемі — запобігаючи збоям парсингу downstream та забезпечуючи типобезпеку без крихкого regex-парсингу','Зменшує використання токенів','Покращує міркування моделі'],ans:1},
+        {q:'Що покращує динамічний few-shot retrieval порівняно зі статичним вибором?',opts:['Зменшує витрати на API','Релевантність — вибір прикладів семантично схожих до поточного запиту допомагає моделі краще узагальнити порівняно з постійним використанням одних і тих самих прикладів','Усуває потребу в розмічених даних','Працює автоматично для будь-якої задачі'],ans:1},
+        {q:'Яку інформацію повинен зберігати реєстр версій промптів?',opts:['Лише текст промпту','Текст промпту, хеш версії, дату створення, eval score на golden dataset та статус розгортання','Лише eval score','Лише ім\'я автора'],ans:1}
+      ],
+      am:[
+        {q:'Vor e DSPy-i hashvarakakan artonyuně dzernarvakan prompt engineering-ic aerj:',opts:['DSPy aveli eckan promptner e steghutyun anum','DSPy promptnerě vor e verchoum learnable parametrner yev automatik optimizatsia e anum nrank nshannakavorvats ogrinaknerov — intuition-hentac karchakarum porkharak chashakavor chapov','DSPy ogrinakner petakanum chuni','DSPy miayn GPT-4-ov e asxatoum'],ans:1},
+        {q:'Verb en amena hamapataskhanum Tree-of-Thought prompting-ě:',opts:['Pastaragin classification tasks-i hamar','Ambiguous kam steghcagorcakan barkeri hamar voronq batsahaytutyamb mek karozhumits aveli lav e mets arjek bayts bardzr ardyuniqi hamar','Bolor production case-neri hamar','Tasks-i hamar voronq irakannish pataskhaner en petakum'],ans:1},
+        {q:'Vor e karevorum artonyuně structured output enforcement-i (JSON mode, Pydantic):',opts:['Ayн model-nerě aragon e anum','Garantavorum e ardjunqnerě schema-ov hamapatastkhanutyun — downstream parsing texaghutiunner kaxhoghum e yev type safety hazhtarum e aranc fragile regex extraction-i','Nvazilutyun e beru token ogtaharvutyan','Bariatsnum e model-i tartacelutyouně'],ans:1},
+        {q:'Inch e bariatsnum dynamic few-shot retrieval-ě static few-shot entrutyamb hamarakelutyamb:',opts:['Nvazilutyun e beru API-i arcunqner','Relevantnost — amsyur query-i semantikakan nman ogrinakner entrutyouně model-in karoghanutyoun e talis aveli lav generalizatsia aranc mishtap nuynayin ogrinakner ogtaharvelu','Hanel e petahanjnery label arvatsvats data-i','Automatik ashxatoum e bolor tasks-i hamar'],ans:1},
+        {q:'Inch tveyal petq e pahpanel prompt version registry-ě:',opts:['Miayn prompt-i texst','Prompt-i texst, version hash, steghtsman amsakatar, eval score golden dataset-um yev deployment kargyavichake — rollback, hamarakelutyoun yev hashvapataschanutyoun hamakargelu hamar','Miayn eval score','Miayn helekov anunę'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'AI Regulation & Responsible Deployment'},
+    uk:{title:'Регулювання AI та відповідальне розгортання'},
+    am:{title:'AI Kanutakargum ev Partadir Deployment'},
+    duration:'65 min',
+    lesson:`<h2>Building AI Systems That Are Safe and Compliant</h2>
+<p>Regulation is catching up to AI. The EU AI Act, GDPR implications for AI, and emerging frameworks in the US and UK create legal requirements that AI engineers must design for — not add as afterthoughts.</p>
+<h3>EU AI Act: Risk Tiers</h3>
+<ul>
+<li><strong>Unacceptable Risk (banned):</strong> Real-time biometric surveillance in public spaces, social scoring by governments, subliminal manipulation systems.</li>
+<li><strong>High Risk (strict compliance):</strong> AI in hiring decisions, credit scoring, medical devices, law enforcement, critical infrastructure. Requires conformity assessments, human oversight, audit logging, and transparency.</li>
+<li><strong>Limited Risk (transparency obligations):</strong> Chatbots, deepfakes — must disclose AI nature to users.</li>
+<li><strong>Minimal Risk (no obligations):</strong> Spam filters, AI-assisted content recommendations.</li>
+</ul>
+<h3>Bias Detection Pipeline</h3>
+<pre><code>import pandas as pd
+from sklearn.metrics import confusion_matrix
+
+def evaluate_bias(model, test_data: pd.DataFrame, sensitive_attr: str, label_col: str, pred_col: str) -> dict:
+    """Evaluate model fairness across demographic groups."""
+    results = {}
+    groups = test_data[sensitive_attr].unique()
+
+    for group in groups:
+        subset = test_data[test_data[sensitive_attr] == group]
+        y_true = subset[label_col]
+        y_pred = subset[pred_col]
+
+        tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0,1]).ravel()
+        results[group] = {
+            'false_positive_rate': fp / (fp + tn) if (fp + tn) > 0 else 0,
+            'false_negative_rate': fn / (fn + tp) if (fn + tp) > 0 else 0,
+            'accuracy': (tp + tn) / len(subset),
+            'n': len(subset)
+        }
+
+    # Disparate impact: ratio of positive outcomes across groups
+    positive_rates = {g: r['accuracy'] for g, r in results.items()}
+    min_rate = min(positive_rates.values())
+    max_rate = max(positive_rates.values())
+    results['disparate_impact_ratio'] = min_rate / max_rate if max_rate > 0 else 1.0
+    # EU guidance: ratio below 0.8 indicates potential discrimination
+    results['bias_flag'] = results['disparate_impact_ratio'] < 0.8
+    return results</code></pre>
+<h3>Content Filtering Pipeline</h3>
+<pre><code>from enum import Enum
+from dataclasses import dataclass
+
+class FilterAction(Enum):
+    ALLOW = 'allow'
+    BLOCK = 'block'
+    REDACT = 'redact'
+    ESCALATE = 'escalate'
+
+@dataclass
+class FilterResult:
+    action: FilterAction
+    reason: str
+    confidence: float
+
+class ContentFilterPipeline:
+    def __init__(self, rules: list, audit_logger):
+        self.rules = rules
+        self.audit_logger = audit_logger
+
+    def evaluate(self, text: str, context: dict) -> FilterResult:
+        for rule in self.rules:
+            result = rule.evaluate(text, context)
+            if result.action != FilterAction.ALLOW:
+                self.audit_logger.log({
+                    'text_hash': hashlib.sha256(text.encode()).hexdigest(),
+                    'rule': rule.name,
+                    'action': result.action.value,
+                    'reason': result.reason,
+                    'user_id': context.get('user_id'),
+                    'timestamp': datetime.utcnow().isoformat()
+                })
+                return result
+        return FilterResult(FilterAction.ALLOW, 'passed all checks', 1.0)</code></pre>
+<h3>GDPR Implications for AI Training Data</h3>
+<ul>
+<li><strong>Lawful basis:</strong> Training on personal data requires a legal basis (consent, legitimate interest, contractual necessity).</li>
+<li><strong>Right to erasure:</strong> If a user requests deletion, you must be able to remove their data from training sets — and potentially from trained model weights (machine unlearning).</li>
+<li><strong>Purpose limitation:</strong> Data collected for one purpose cannot be repurposed for AI training without explicit consent.</li>
+<li><strong>Data minimization:</strong> Only collect and train on data necessary for the task — no passive data collection for future AI use.</li>
+</ul>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "I am building a hiring tool that uses AI to rank candidates. Under the EU AI Act, this is likely high-risk AI. Generate a compliance checklist covering: required documentation, human oversight mechanisms, bias testing requirements, and audit logging specifications."</div>`,
+    lab:`<h2>Lab: AI Regulation & Responsible Deployment</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>Bias Detection Pipeline</h3><p>Implement a bias detection pipeline that evaluates model outputs across demographic groups. Use a loan approval or hiring dataset with gender and age attributes. Calculate false positive rates, false negative rates, and disparate impact ratio for each group. Flag any group where the disparate impact ratio falls below 0.8. Generate a bias report with visualizations.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Content Filtering with Audit Logging</h3><p>Build a content filtering layer with 5 configurable rules: toxicity detection (use a classifier), PII detection (regex + NER), competitor mention blocking, topic restrictions, and confidence thresholds. Every filtering decision must be logged to an append-only audit log with: timestamp, text hash, rule triggered, action taken, and user ID.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Model Card Creation</h3><p>Create a model card template following the Google Model Cards specification. Fill it out for a production AI feature you have built: include intended use, out-of-scope uses, evaluation metrics by demographic group, known limitations, training data description, and recommended human oversight requirements.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>AI Incident Response Runbook</h3><p>Design an AI incident response runbook covering: incident classification (severity 1-4), detection signals (what triggers an incident), immediate response steps (who is notified, what is disabled), investigation procedure (how to gather evidence), remediation steps, and post-incident review template. Simulate a P1 incident: AI output causes user harm due to a biased recommendation. Walk through the runbook.</p></div>`,
+    quiz:{
+      en:[
+        {q:'Under the EU AI Act, which category requires conformity assessments, human oversight, and audit logging?',opts:['Minimal risk AI','High risk AI — including AI used in hiring, credit scoring, medical devices, and law enforcement','Limited risk AI','All AI systems'],ans:1},
+        {q:'What does disparate impact ratio measure in AI bias evaluation?',opts:['Model accuracy','The ratio of positive outcome rates between the best and worst performing demographic groups — values below 0.8 indicate potential discrimination','Model speed','Training data size'],ans:1},
+        {q:'What GDPR right creates the biggest technical challenge for AI systems trained on personal data?',opts:['Right to data portability','Right to erasure — users can request deletion of their data, which may require removing it from training sets and potentially retraining or applying machine unlearning to model weights','Right to access','Right to rectification'],ans:1},
+        {q:'Why must content filtering decisions be written to an append-only audit log?',opts:['For performance reasons','To ensure accountability, enable incident investigation, demonstrate regulatory compliance, and prevent tampering with the record of filtering decisions','To reduce storage costs','To improve filter accuracy'],ans:1},
+        {q:'What is the primary purpose of a model card for a production AI system?',opts:['Marketing documentation','Transparent documentation of intended use, out-of-scope uses, evaluation metrics by demographic group, known limitations, and oversight requirements — enabling informed deployment decisions','Technical specification for engineers only','Legal contract'],ans:1}
+      ],
+      uk:[
+        {q:'Відповідно до Акту AI ЄС, яка категорія вимагає оцінок відповідності, нагляду людини та логування аудиту?',opts:['AI мінімального ризику','AI високого ризику — включаючи AI у наймі, кредитному скорингу, медичних пристроях та правоохоронних органах','AI обмеженого ризику','Всі AI-системи'],ans:1},
+        {q:'Що вимірює коефіцієнт disparate impact при оцінці упередження AI?',opts:['Точність моделі','Відношення позитивних результатів між найкращою та найгіршою демографічними групами — значення нижче 0,8 вказують на можливу дискримінацію','Швидкість моделі','Розмір навчальних даних'],ans:1},
+        {q:'Яке право GDPR створює найбільший технічний виклик для AI-систем, навчених на персональних даних?',opts:['Право на перенесення даних','Право на видалення — користувачі можуть вимагати видалення своїх даних, що може потребувати видалення з навчальних наборів та перенавчання моделі','Право на доступ','Право на виправлення'],ans:1},
+        {q:'Чому рішення щодо фільтрації контенту повинні записуватися в незмінний журнал аудиту?',opts:['З міркувань продуктивності','Для забезпечення підзвітності, розслідування інцидентів, демонстрації відповідності регуляторним вимогам та запобігання фальсифікації записів','Для зменшення витрат на зберігання','Для покращення точності фільтру'],ans:1},
+        {q:'Яка основна мета model card для продакшн AI-системи?',opts:['Маркетингова документація','Прозора документація передбаченого використання, невідповідних використань, метрик оцінки за демографічними групами, відомих обмежень та вимог до нагляду','Технічна специфікація лише для інженерів','Юридичний контракт'],ans:1}
+      ],
+      am:[
+        {q:'EU AI Act-i hamapataskhanutyamb, vor kategoria petakum e conformity assessment, mankakan varich yev audit logging:',opts:['Minimum risk AI','Bardzr risk AI — aysdinq AI-ner norpoghnardakanutyamb, credit scoring-um, bzhshkakan sazkavorumneri mej yev iravapahpanutyamb','Limited risk AI','Bolor AI hamakargchery'],ans:1},
+        {q:'Inch e chapum disparate impact ratio-ě AI bias evaluation-um:',opts:['Model-i chishtaghtyouně','Amena lav yev amena vat demographik khndirneri dhrdich drak haraberake — 0.8-ic caxr ardyunqnerě vkayum en harkavor diskriminatsia','Model-i artagutnakan grelutyouně','Training data-i maserutyouně'],ans:1},
+        {q:'Vor GDPR iravounq amena mets texnik mahmagadrutyoun e steghutyun anum AI hamakargchernerum voronq ankhnayin datayov en varzvel:',opts:['Portability iravounq','Jnjelu iravounq — ogtaverqnerě karogh en petapaymanavorel irents datai jnjutyouně, voré karoghi e datai training set-erich hanel yev nouynayin model-i weights-erum machine unlearning krarir kaznelu hamar','Access iravounq','Ushghman iravounq'],ans:1},
+        {q:'Ine petakum e content filtering voroshumuner append-only audit log-um grel:',opts:['Performance petqerov','Partavorutyoun hamakargelu, arandzin hatsel, karavarutyuni hamarakelutyoun tsuyts talu yev filtering voroshumuneri iravunkbanutyan tapanagrutyan kamaynutyouně batsalanelu hamar','Pahpanman arcunqnerě nvaziluě','Filter-i chishtaghtyouně bariatsneluě'],ans:1},
+        {q:'Vor e hashvarakakan npatakě model card-i production AI-i hamar:',opts:['Marketing-i vaveragrutyan','Npatakavorvats ogtaharvutyan, anstachavor ogtaharvutyuner, demografik khndirov gnahatakanutyan metrikaner, hayltn sharank yev varich petahanjneri thafancik vaveragrutyan — tegalekats deployment voroshumner katum hamar','Texnikakan spec miayn injenernerov','Iravakan pativ'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'AI Infrastructure & MLOps at Scale'},
+    uk:{title:'AI-інфраструктура та MLOps у масштабі'},
+    am:{title:'AI Infrastructure ev MLOps Masshtabi Mej'},
+    duration:'75 min',
+    lesson:`<h2>MLOps for LLM-Based Systems</h2>
+<p>MLOps for LLMs differs from classical ML: you are not retraining models from scratch — you are versioning prompts, tracking experiment combinations of model + prompt + temperature, detecting output drift, and deploying updates with zero downtime.</p>
+<h3>Experiment Tracking with MLflow</h3>
+<pre><code>import mlflow
+import mlflow.data
+
+mlflow.set_experiment("rag-pipeline-optimization")
+
+with mlflow.start_run(run_name="gpt4o-hybrid-search-rerank-v3"):
+    # Log all parameters that define this experiment
+    mlflow.log_params({
+        'model': 'gpt-4o',
+        'temperature': 0.3,
+        'retrieval_strategy': 'hybrid',
+        'reranker': 'cohere-rerank-v3',
+        'top_k': 5,
+        'chunk_size': 512,
+        'prompt_version': 'v7'
+    })
+
+    # Run evaluation on golden dataset
+    results = evaluate_pipeline(config)
+
+    # Log metrics
+    mlflow.log_metrics({
+        'faithfulness': results['faithfulness'],
+        'answer_relevancy': results['answer_relevancy'],
+        'context_precision': results['context_precision'],
+        'latency_p95_ms': results['p95_latency']
+    })
+
+    # Log the actual prompt as an artifact
+    mlflow.log_text(CURRENT_PROMPT, 'prompt_v7.txt')</code></pre>
+<h3>A/B Model Deployment with Traffic Splitting</h3>
+<pre><code># Kubernetes deployment with traffic splitting via Istio
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ai-service
+spec:
+  hosts: [ai-service]
+  http:
+  - route:
+    - destination:
+        host: ai-service
+        subset: stable
+      weight: 90
+    - destination:
+        host: ai-service
+        subset: canary
+      weight: 10</code></pre>
+<h3>Drift Detection</h3>
+<p>LLM output drift happens when model behavior changes subtly over time — due to model updates by providers, distribution shift in input data, or prompt decay.</p>
+<pre><code>import numpy as np
+from scipy import stats
+
+class DriftDetector:
+    def __init__(self, baseline_scores: list, threshold_pvalue=0.05, window_size=100):
+        self.baseline = np.array(baseline_scores)
+        self.threshold = threshold_pvalue
+        self.window = []
+        self.window_size = window_size
+
+    def add_score(self, score: float) -> dict:
+        self.window.append(score)
+        if len(self.window) > self.window_size:
+            self.window.pop(0)
+
+        if len(self.window) >= 20:  # minimum sample size
+            stat, pvalue = stats.ks_2samp(self.baseline, self.window)
+            drift_detected = pvalue < self.threshold
+            return {
+                'drift_detected': drift_detected,
+                'pvalue': pvalue,
+                'baseline_mean': float(np.mean(self.baseline)),
+                'current_mean': float(np.mean(self.window)),
+                'delta': float(np.mean(self.window) - np.mean(self.baseline))
+            }
+        return {'drift_detected': False, 'pvalue': 1.0}</code></pre>
+<h3>GPU Cluster Cost Optimization</h3>
+<ul>
+<li><strong>Spot/preemptible instances:</strong> Use for batch evaluation jobs — 60-80% cheaper, acceptable for non-realtime workloads</li>
+<li><strong>Autoscaling inference:</strong> Scale GPU replicas based on request queue depth, not just CPU/memory</li>
+<li><strong>Request batching:</strong> vLLM continuous batching processes multiple requests simultaneously on the same GPU pass — dramatically increases throughput per GPU-hour</li>
+<li><strong>Model sharing:</strong> Use LoRA adapters to serve multiple fine-tuned variants from a single base model loaded once in VRAM</li>
+</ul>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "My MLflow dashboard shows that eval scores for our RAG pipeline have degraded 12% over the last 30 days — from 0.87 to 0.77 faithfulness. Our prompt and code have not changed. What are the most likely root causes? Give me a diagnostic checklist to identify whether this is model drift, data drift, or infrastructure drift."</div>`,
+    lab:`<h2>Lab: AI Infrastructure & MLOps at Scale</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>MLflow Experiment Tracking</h3><p>Build an MLflow experiment tracking pipeline for prompt + model combinations. Run 6 experiments varying: model (GPT-4o vs GPT-4o-mini), temperature (0.0 vs 0.3), and retrieval strategy (dense vs hybrid). Log all parameters, eval metrics, and the prompt text as an artifact. Use the MLflow UI to compare experiments and identify the winning configuration.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Automated Drift Detection</h3><p>Implement automated drift detection that alerts when output quality degrades. Use the Kolmogorov-Smirnov test on a sliding window of eval scores vs a baseline. Send an alert (Slack webhook or email) when drift is detected (p-value below 0.05). Test by injecting 20 low-quality responses into the window and verifying the alert fires.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Shadow Deployment</h3><p>Set up a shadow deployment: route 10% of production traffic to a new model version while serving responses from the stable version. Log both model outputs per request. After 100 requests, compare: faithfulness score, latency, and token count. Generate a comparison report and recommend whether to promote the new version.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Automated Retraining Trigger</h3><p>Design a retraining pipeline that triggers automatically when drift exceeds a threshold. When the drift detector fires: (1) create a GitHub issue labeled "model-drift", (2) pull the last 500 production examples flagged as low quality, (3) run the DSPy optimizer on this new data, (4) evaluate the new optimized prompt on the golden dataset, (5) if it improves, open a PR with the updated prompt. Simulate end-to-end.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the key difference between MLOps for classical ML and MLOps for LLM systems?',opts:['They are identical','LLM MLOps focuses on versioning prompts, tracking prompt+model+parameter combinations, and detecting output drift — not retraining from scratch like classical ML','LLM MLOps requires more GPUs','Classical ML has no monitoring needs'],ans:1},
+        {q:'What statistical test is appropriate for detecting output drift in LLM pipelines?',opts:['Linear regression','The Kolmogorov-Smirnov test — it compares the distribution of current scores against a baseline distribution without assuming normality, making it robust for eval score drift detection','A/B test only','Chi-squared test only'],ans:1},
+        {q:'What is the purpose of shadow deployment in AI systems?',opts:['To test AI at night','To run a new model version on real production traffic without exposing users to its outputs — enabling real-world comparison before any user impact','To reduce costs','To train new models'],ans:1},
+        {q:'Why is request batching critical for GPU cost optimization?',opts:['It reduces model accuracy','Batching allows processing multiple requests in a single GPU forward pass — dramatically increasing throughput per GPU-hour and reducing cost per inference','It simplifies deployment','It improves model quality'],ans:1},
+        {q:'What triggers an automated retraining or re-optimization pipeline?',opts:['A fixed calendar schedule only','Drift detection signals — when eval scores drop below a threshold vs the baseline, indicating the current prompt or model combination is no longer performing adequately','Any user complaint','Only manual engineering review'],ans:1}
+      ],
+      uk:[
+        {q:'Яка ключова різниця між MLOps для класичного ML та MLOps для LLM-систем?',opts:['Вони ідентичні','LLM MLOps зосереджений на версіюванні промптів, відстеженні комбінацій промпт+модель+параметр та виявленні дрейфу виводу — не перенавчанні з нуля','LLM MLOps потребує більше GPU','Класичний ML не потребує моніторингу'],ans:1},
+        {q:'Який статистичний тест підходить для виявлення дрейфу виводу в LLM-пайплайнах?',opts:['Лінійна регресія','Тест Колмогорова-Смірнова — порівнює розподіл поточних оцінок з базовим розподілом без припущення нормальності','Лише A/B тест','Лише тест хі-квадрат'],ans:1},
+        {q:'Яка мета shadow deployment у AI-системах?',opts:['Тестування AI вночі','Запуск нової версії моделі на реальному продакшн-трафіку без показу виводів користувачам — порівняння в реальних умовах до будь-якого впливу на користувачів','Зменшення витрат','Навчання нових моделей'],ans:1},
+        {q:'Чому пакетна обробка запитів критична для оптимізації витрат на GPU?',opts:['Зменшує точність моделі','Пакетна обробка дозволяє обробляти кілька запитів за один прохід GPU — значно збільшуючи пропускну здатність на GPU-годину та зменшуючи вартість інференсу','Спрощує розгортання','Покращує якість моделі'],ans:1},
+        {q:'Що запускає автоматизований пайплайн перенавчання або реоптимізації?',opts:['Фіксований календарний графік','Сигнали виявлення дрейфу — коли eval scores падають нижче порогу порівняно з базовим рівнем','Будь-яка скарга користувача','Лише ручний огляд інженерів'],ans:1}
+      ],
+      am:[
+        {q:'Vor e hashvarakakan tarberutyouně classical ML yev LLM hamakargcherneri MLOps mej:',opts:['Nrank nuynayin en','LLM MLOps-ě kendronanum e prompt versioning-i, prompt+model+parameter kombishcutyuner harkadar anelu yev arvard drift-i haytnabelutyamb — ays e otchte classical ML-i nman vercic sksnelov norakazmum','LLM MLOps-ě aveli shat GPU e petakum','Classical ML-ě monitoring petakhankots chi'],ans:1},
+        {q:'Vor statistikakan test e petavor LLM pipeline-nerum arvard drift-i haytnabelutyamb:',opts:['Linear regression','Kolmogorov-Smirnov test-ě — hamarum e amsyur score-neri baxashkhume baselien baxashkhumov normalutyoun chpetahanarogh anelov — shat bernavor eval score drift-i haytnabelutyamb','Miayn A/B test','Miayn chi-squared test'],ans:1},
+        {q:'Vor e npatakě shadow deployment-i AI hamakargcherum:',opts:['AI-ě gisherov tesarkeluě','Irakakan production traffic-i vra nor model versioni garatsman gorcum aranc ogtaverqnerin norakazmě tsuyts taluyu — ogtaverkneri vra amboghjutyan irakakan hashvarkakanner hamareluě nakhadzain','Arcunqnerě nvaziluě','Nor model-nerě vardzil'],ans:1},
+        {q:'Ine request batching-ě kritikakan e GPU-i arcunqneri optimizatsia hamar:',opts:['Nvazilutyun e beru model-i chishtaghtyouně','Batching-ě kareli e dnum mek GPU forward pass-um shat petqery lckarel — shappes metsatsneluv GPU-am pataskhanum throughput yev nvazilutyun beru inference-i taraderti hamar','Apahov e anum deployment-ě','Bariatsnum e model-i orakutyouně'],ans:1},
+        {q:'Inch e trigger anum automated retraining kam re-optimization pipeline-ě:',opts:['Amraghrqayin jamnatsutsakarg miayn','Drift haytnabelutyamb nshaner — erb eval score-nerě baseline-i hamarakelutyamb shat anel trop caxr en yec, vkayum e amsyur prompt kam model kombisha arevadyuts chuni','Amsyur user-i parery','Miayn dzernarvakan injenerakan vercayin tesutyan'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'Building AI Platforms & Internal Developer Tools'},
+    uk:{title:'Побудова AI-платформ та внутрішніх інструментів'},
+    am:{title:'AI Platforms ev Bnakain Developer Tools Kangnumel'},
+    duration:'65 min',
+    lesson:`<h2>Platform Engineering for AI Teams</h2>
+<p>As AI usage grows inside an organization, individual teams building their own LLM integrations creates chaos: duplicated costs, inconsistent safety controls, no visibility into usage, and no ability to swap models. An internal AI platform solves this with a shared gateway, prompt management, and developer tooling.</p>
+<h3>Internal LLM Gateway Architecture</h3>
+<pre><code>from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import StreamingResponse
+import httpx, hashlib, json, time
+from functools import lru_cache
+
+app = FastAPI()
+cache = {}  # In production: Redis
+
+class LLMGateway:
+    def __init__(self):
+        self.rate_limits = {}  # team_id -> {count, reset_at}
+        self.model_routing = {
+            'fast': 'gpt-4o-mini',
+            'powerful': 'gpt-4o',
+            'private': 'http://onprem-llm:8000/v1'
+        }
+
+    def check_rate_limit(self, team_id: str, limit=1000, window=3600):
+        now = time.time()
+        entry = self.rate_limits.get(team_id, {'count': 0, 'reset_at': now + window})
+        if now > entry['reset_at']:
+            entry = {'count': 0, 'reset_at': now + window}
+        if entry['count'] >= limit:
+            raise HTTPException(429, 'Rate limit exceeded')
+        entry['count'] += 1
+        self.rate_limits[team_id] = entry
+
+    def get_cache_key(self, model: str, messages: list) -> str:
+        payload = json.dumps({'model': model, 'messages': messages}, sort_keys=True)
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+gateway = LLMGateway()
+
+@app.post('/v1/chat/completions')
+async def proxy_completion(request: Request):
+    body = await request.json()
+    team_id = request.headers.get('X-Team-ID', 'unknown')
+    gateway.check_rate_limit(team_id)
+
+    # Semantic cache check
+    cache_key = gateway.get_cache_key(body['model'], body['messages'])
+    if cache_key in cache:
+        return cache[cache_key]
+
+    # Route to appropriate backend
+    backend = gateway.model_routing.get(body.get('routing_tier', 'powerful'))
+    # ... forward to backend, cache result, track usage
+</code></pre>
+<h3>Prompt Template Management System</h3>
+<pre><code>class PromptTemplateManager:
+    """Versioned, access-controlled prompt template store."""
+
+    def __init__(self, db):
+        self.db = db
+
+    def create_version(self, template_id: str, content: str, author: str, team: str) -> dict:
+        version = {
+            'id': template_id,
+            'content': content,
+            'version': self._next_version(template_id),
+            'author': author,
+            'team': team,
+            'hash': hashlib.sha256(content.encode()).hexdigest(),
+            'created_at': datetime.utcnow().isoformat(),
+            'status': 'draft'  # draft -> review -> production -> deprecated
+        }
+        self.db.save(version)
+        return version
+
+    def get_production(self, template_id: str) -> str:
+        versions = self.db.query(template_id, status='production')
+        if not versions:
+            raise ValueError(f'No production version for {template_id}')
+        return versions[-1]['content']
+
+    def promote(self, template_id: str, version: int, approver: str):
+        # Only designated approvers can promote to production
+        if not self._is_approver(approver, template_id):
+            raise PermissionError('Not authorized to promote prompts')
+        self.db.update(template_id, version, status='production')</code></pre>
+<h3>AI Feature Flags</h3>
+<pre><code>class AIFeatureFlags:
+    """Gradual rollout system for AI features with user-segment targeting."""
+
+    def evaluate(self, flag_key: str, user: dict) -> dict:
+        flag = self.flags[flag_key]
+
+        # Segment targeting: only enable for enterprise users in EU
+        if flag.get('segments'):
+            if not self._matches_segments(user, flag['segments']):
+                return {'enabled': False, 'variant': 'control'}
+
+        # Percentage rollout using consistent hashing
+        bucket = int(hashlib.md5(f"{flag_key}:{user['id']}".encode()).hexdigest(), 16) % 100
+        if bucket < flag['rollout_pct']:
+            return {'enabled': True, 'variant': flag.get('treatment', 'new')}
+        return {'enabled': False, 'variant': 'control'}</code></pre>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "We have 12 teams all integrating LLMs directly, each with their own API keys, no shared rate limiting, no cost visibility, and no consistent safety rules. Design an internal AI platform architecture that solves these problems without requiring teams to rewrite their existing integrations."</div>`,
+    lab:`<h2>Lab: Building AI Platforms & Developer Tools</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>Internal LLM Gateway</h3><p>Build an internal LLM gateway using FastAPI. Features: (1) API key authentication per team, (2) per-team rate limiting (1000 req/hour), (3) semantic response caching using SHA-256 of model+messages, (4) model routing based on a routing_tier header (fast/powerful/private), (5) usage logging per team. Test with 3 simulated teams hitting the gateway concurrently.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>Prompt Template Management</h3><p>Create a prompt template management system with versioning and access control. Store templates in SQLite. Implement: draft → review → production → deprecated lifecycle, team-scoped access control (teams can only edit their own templates), approval workflow (manager must approve production promotions), and a CLI for listing, comparing, and promoting versions.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>AI Feature Flag System</h3><p>Implement an AI feature flag system that enables gradual rollout by user segment. Flags support: percentage rollout (0-100%), segment targeting (plan type, region, account age), and variant configuration (control vs treatment). Use consistent hashing so the same user always gets the same variant. Build a flag admin UI showing active flags, their rollout percentages, and per-variant metrics.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>Developer Dashboard</h3><p>Build a developer dashboard showing token usage, cost, and latency per team. Pull data from your gateway logs. Display: daily token usage by team (bar chart), cost per team this month (table), P50/P95/P99 latency by model (line chart), cache hit rate (gauge), and top 5 most-called prompt templates. Update every 60 seconds. Use Chart.js or similar for visualization.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What problem does an internal LLM gateway solve for organizations with multiple AI teams?',opts:['It replaces the need for LLMs','It centralizes rate limiting, cost visibility, access control, caching, and safety rules — preventing the chaos of each team independently integrating LLMs with no shared governance','It makes LLMs faster','It reduces model hallucinations'],ans:1},
+        {q:'Why is semantic caching valuable in an LLM gateway?',opts:['It reduces model quality','Identical or near-identical prompts return cached responses instantly, dramatically reducing latency and cost for repeated queries without calling the LLM API again','It improves model accuracy','It enables real-time streaming'],ans:1},
+        {q:'What is the correct prompt template lifecycle for production AI systems?',opts:['Write and deploy immediately','Draft → Review → Production → Deprecated — with explicit approval gates preventing untested prompts from reaching production users','Write, test, deploy','Only production status needed'],ans:1},
+        {q:'What makes consistent hashing important for AI feature flag rollouts?',opts:['It distributes traffic evenly','It ensures the same user always lands in the same bucket (control or treatment), preventing experience inconsistency where a user sees different AI behavior on different requests','It improves performance','It reduces infrastructure cost'],ans:1},
+        {q:'What metrics should a developer AI dashboard expose per team?',opts:['Only error rates','Token usage, cost, latency percentiles (P50/P95/P99), cache hit rate, and most-used prompt templates — giving teams full visibility into their AI consumption and performance','Only request count','Only model names used'],ans:1}
+      ],
+      uk:[
+        {q:'Яку проблему вирішує внутрішній LLM-шлюз для організацій з кількома AI-командами?',opts:['Він замінює потребу в LLM','Централізує rate limiting, видимість витрат, контроль доступу, кешування та правила безпеки — запобігаючи хаосу незалежних інтеграцій кожної команди','Це прискорює LLM','Зменшує галюцинації моделі'],ans:1},
+        {q:'Чому семантичне кешування цінне в LLM-шлюзі?',opts:['Знижує якість моделі','Ідентичні або майже ідентичні промпти повертають кешовані відповіді миттєво, значно знижуючи затримку та вартість для повторних запитів','Покращує точність моделі','Дозволяє потоковий стрімінг'],ans:1},
+        {q:'Який правильний життєвий цикл шаблону промпту для продакшн AI-систем?',opts:['Написати та розгорнути одразу','Draft → Review → Production → Deprecated — з явними воротами затвердження, що запобігають потраплянню не протестованих промптів до продакшн-користувачів','Написати, протестувати, розгорнути','Потрібен лише статус Production'],ans:1},
+        {q:'Чому consistent hashing важливий для AI feature flag rollouts?',opts:['Рівномірно розподіляє трафік','Гарантує, що один і той самий користувач завжди потрапляє в один і той самий бакет, запобігаючи непослідовності досвіду','Покращує продуктивність','Знижує інфраструктурні витрати'],ans:1},
+        {q:'Які метрики повинен відображати AI-дашборд для розробників по командах?',opts:['Лише частоту помилок','Використання токенів, витрати, перцентилі затримки (P50/P95/P99), коефіцієнт попадань кешу та найбільш використовувані шаблони промптів','Лише кількість запитів','Лише використані моделі'],ans:1}
+      ],
+      am:[
+        {q:'Vor khndirě e luzum bnakain LLM gateway-ě kaykarnutyunneri hamar bazu AI khmberi hamar:',opts:['Ayն LLM-neri petahanjě hatcum e','Kendronacnelu rate limiting, arcunqi terinyutyan, mechumnahorutyyan, cache-i yev anvtangutyan kanonneri — amek khmberi miayanabanum LLM integratsia-neri chaos-ě kaxhoghelu hamar','Ayն LLM-nerě aragon e anum','Nvazilutyun e beru model-i hallucination'],ans:1},
+        {q:'Ine semantik caching-ě aylakeraky e LLM gateway-um:',opts:['Nvazilutyun e beru model-i orakutyouně','Nuynayin kam motekayin prompt-nerě cache-atsats pataskhanner en vercnum anuratsh, sharjavoraban nvazilutyun beru latency yev arcunq krknavor petqeri hamar aranc LLM API-ě norenkel kancanelu','Bariatsnum e model-i chishtaghtyouně','Irakannish streaming-ě himnadroutyun e talis'],ans:1},
+        {q:'Vor e chishd prompt template lifecycle-ě production AI hamakargchernerum:',opts:['Grel u anmijapes deploy anel','Draft → Review → Production → Deprecated — haçt hastatman vorteknerov voronq chstugvats prompt-neri production ogtaverqnerum hasnelě kaxhoghum en','Grel, tesarkel, deploy anel','Miayn Production kargyavichak e petakum'],ans:1},
+        {q:'Inch e danum consistent hashing-ě karevorum AI feature flag rollouts-i hamar:',opts:['Trafikě havasan e baxanum','Hastatnum e vor nuynayin ogtaverkě mishtap nuynayin bucket-um e (control kam treatment), kaxhoghum e anhamaputyun tajk, votel nuynayin user-ě tesnum e LLM texaqertum skhalneri vra','Bariatsnum e aragutnakan grelutyouně','Nvazilutyun e beru kakhutyan hamar'],ans:1},
+        {q:'Inch metrikaner petq e developer AI dashboard-ě tsuyts ta amek khmbi hamar:',opts:['Miayn skhalner','Token ogtaharvutyoun, arjek, latency pertsentilaynery (P50/P95/P99), cache hit rate, yev amena shat ogtaharvvats prompt templates — khmberin lincharap terinyutyan AI spchutyuny yev spectacularity','Miayn petqeri kankě','Miayn ogtaharvvats model-ner'],ans:1}
+      ]
+    }
+  },
+  {
+    en:{title:'AI Engineering Leadership & Org Design'},
+    uk:{title:'Лідерство в AI-інжинірингу та організаційний дизайн'},
+    am:{title:'AI Engineering Kaghakaparutyun ev Kazmakerputyun'},
+    duration:'60 min',
+    lesson:`<h2>Building and Scaling AI Engineering Teams</h2>
+<p>AI engineering leadership requires different skills than traditional software engineering leadership. You must navigate ambiguity (AI outcomes are probabilistic), communicate uncertainty to stakeholders, define what "good" looks like for AI systems, and build teams that balance research curiosity with production discipline.</p>
+<h3>Centralized vs Embedded AI Teams</h3>
+<ul>
+<li><strong>Centralized AI Platform Team:</strong> One team owns the LLM gateway, prompt library, evaluation infrastructure, and AI tooling. Product teams consume the platform. Pros: consistency, shared learnings, economies of scale. Cons: bottleneck risk, distance from product context.</li>
+<li><strong>Embedded AI Engineers:</strong> AI engineers sit within product teams. Pros: close to user problems, fast iteration. Cons: duplicated tooling, inconsistent practices, harder to maintain safety standards.</li>
+<li><strong>Hybrid (recommended for scale):</strong> Central platform team provides the foundation (gateway, evals, governance). Embedded AI engineers build product features on top. The platform team acts as an accelerator, not a gatekeeper.</li>
+</ul>
+<h3>AI Engineering Competency Matrix</h3>
+<pre><code>competency_matrix = {
+    'Junior AI Engineer': {
+        'prompt_engineering': 'Writes effective zero-shot and few-shot prompts',
+        'api_integration': 'Integrates LLM APIs into applications',
+        'evaluation': 'Runs manual evaluation and interprets results',
+        'rag': 'Implements basic RAG with a vector database',
+        'production': 'Deploys with guidance; handles basic errors'
+    },
+    'Mid-Level AI Engineer': {
+        'prompt_engineering': 'Optimizes prompts systematically with DSPy or A/B tests',
+        'api_integration': 'Builds multi-tool agents and handles streaming',
+        'evaluation': 'Designs automated eval pipelines and golden datasets',
+        'rag': 'Implements hybrid search, reranking, and RAGAS evaluation',
+        'production': 'Owns feature flags, canary deployments, and rollback procedures'
+    },
+    'Senior AI Engineer': {
+        'prompt_engineering': 'Defines org-wide prompt standards and versioning practices',
+        'api_integration': 'Architects multi-agent systems and LLM platforms',
+        'evaluation': 'Designs company-wide eval strategy and quality gates',
+        'rag': 'Designs retrieval architecture for scale; evaluates chunking and indexing strategies',
+        'production': 'Leads AI incident response; designs drift detection and retraining pipelines'
+    },
+    'Staff AI Engineer': {
+        'prompt_engineering': 'Drives prompt engineering research; publishes internal best practices',
+        'api_integration': 'Designs the AI platform architecture for the entire organization',
+        'evaluation': 'Partners with research to advance evaluation methodology',
+        'rag': 'Contributes to open source; benchmarks novel retrieval approaches',
+        'production': 'Sets AI safety and compliance standards for the organization'
+    }
+}</code></pre>
+<h3>Technical Roadmapping for AI Products</h3>
+<p>AI product roadmaps must account for uncertainty in a way traditional software roadmaps do not:</p>
+<ul>
+<li><strong>Research phase (2-4 weeks):</strong> Prototype multiple approaches, establish baseline eval metrics, identify key technical risks</li>
+<li><strong>Prototype phase (4-6 weeks):</strong> Build end-to-end prototype, collect user feedback on real queries, identify failure modes</li>
+<li><strong>Production hardening (4-8 weeks):</strong> Add eval pipeline, safety controls, monitoring, rollback mechanisms</li>
+<li><strong>Rollout (2-4 weeks):</strong> Gradual feature flag rollout, A/B testing, stakeholder communication</li>
+</ul>
+<h3>Communicating AI Limitations to Stakeholders</h3>
+<pre><code># Stakeholder-friendly limitation language
+limitations_template = {
+    'hallucination': (
+        'The AI may occasionally generate plausible-sounding but incorrect information. '
+        'We have added validation checks and human review steps to catch these cases. '
+        'Accuracy on our test set is {accuracy}%, with {review_rate}% of outputs reviewed by humans.'
+    ),
+    'consistency': (
+        'AI responses may vary slightly for the same input. '
+        'This is expected behavior — we have implemented output caching for identical queries '
+        'and eval monitoring to detect when variation exceeds acceptable thresholds.'
+    ),
+    'scope': (
+        'The AI is optimized for {use_case} and may perform poorly on tasks outside this scope. '
+        'We have added input classification to route out-of-scope queries to appropriate alternatives.'
+    )
+}</code></pre>
+<div class="tip"><strong>🤖 AI Assist</strong>Prompt: "I am presenting our AI roadmap to the executive team. They are asking why the AI feature took 3 months instead of 3 weeks. Write me a clear, non-technical explanation of why AI product development timelines differ from traditional software development — covering: evaluation infrastructure, safety testing, gradual rollout, and the inherent uncertainty of AI outcomes."</div>`,
+    lab:`<h2>Lab: AI Engineering Leadership & Org Design</h2>
+<div class="lab-task"><div class="lab-task-num">Task 1</div><h3>AI Engineering Competency Matrix</h3><p>Create a competency matrix for an AI engineering team spanning junior to staff levels. Define 5 competency areas: prompt engineering, system architecture, evaluation, production operations, and AI safety. For each level (junior, mid, senior, staff), write concrete observable behaviors — not abstract descriptions. Use the matrix to assess your own current level and identify your top 3 growth areas.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 2</div><h3>90-Day AI Feature Roadmap</h3><p>Design a 90-day roadmap for a new AI feature: an intelligent document search tool. Break into 3 phases: Days 1-30 (research: baseline eval, 3 prototype approaches, risk assessment), Days 31-60 (prototype: end-to-end build, user testing with 5 internal users, failure mode documentation), Days 61-90 (production: eval pipeline, safety controls, 1% rollout, A/B test setup). Include milestones, success metrics, and go/no-go decision points at each phase boundary.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 3</div><h3>Stakeholder Communication Template</h3><p>Write a stakeholder communication template that explains 3 AI model limitations without technical jargon: (1) hallucination and what controls are in place, (2) output variability and why it is acceptable, (3) scope limitations and what happens when users go out of scope. The template should be usable by a product manager who is not technical. Test it by having a non-engineer read it and explain the limitations back to you.</p></div>
+<div class="lab-task"><div class="lab-task-num">Task 4</div><h3>AI Team Productivity Dashboard</h3><p>Build a productivity metrics dashboard for an AI engineering team. Track: (1) eval score trend per feature over time (are we improving?), (2) time from idea to production for AI features (are we getting faster?), (3) incident count and mean time to recovery (MTTR) for AI incidents, (4) golden dataset coverage per feature (are we testing enough?), (5) prompt version churn rate (how often are prompts changing?). Display as a weekly digest report sent to the team lead.</p></div>`,
+    quiz:{
+      en:[
+        {q:'What is the recommended org structure for AI engineering at scale?',opts:['All AI engineers in one central team','Hybrid: a central platform team owns the gateway, evals, and governance; embedded AI engineers build features on top — the platform accelerates rather than gatekeeps','All AI engineers embedded in product teams','No dedicated AI engineers needed'],ans:1},
+        {q:'What makes AI product roadmaps fundamentally different from traditional software roadmaps?',opts:['They are shorter','AI outcomes are probabilistic — roadmaps must account for research uncertainty, prototype-to-production gaps, evaluation infrastructure build time, and safety hardening — not just feature development','They require more developers','They cost more'],ans:1},
+        {q:'What is the most important skill for communicating AI limitations to non-technical stakeholders?',opts:['Using technical terminology precisely','Translating probabilistic outcomes and uncertainty into concrete business terms — stating accuracy rates, review processes, and scope boundaries without jargon that creates confusion or false expectations','Showing model architecture diagrams','Presenting benchmark scores'],ans:1},
+        {q:'At what competency level does an AI engineer typically own the evaluation strategy for the entire organization?',opts:['Junior','Staff AI Engineer — who sets eval methodology, partners with research, and defines company-wide quality gates and AI safety standards','Mid-level','Senior'],ans:1},
+        {q:'What should a 90-day AI feature roadmap explicitly include that a traditional software roadmap might not?',opts:['More features','Go/no-go decision points at each phase based on eval metrics — acknowledging that AI features may not be shippable if quality thresholds are not met, unlike traditional features with deterministic outcomes','More developers','A larger budget'],ans:1}
+      ],
+      uk:[
+        {q:'Яка рекомендована організаційна структура для AI-інжинірингу у масштабі?',opts:['Всі AI-інженери в одній центральній команді','Гібридна: центральна платформна команда відповідає за шлюз, evals та governance; вбудовані AI-інженери будують функції поверх — платформа прискорює, а не блокує','Всі AI-інженери вбудовані в продуктові команди','Спеціалізовані AI-інженери не потрібні'],ans:1},
+        {q:'Що робить AI-продуктові роадмапи принципово відмінними від традиційних?',opts:['Вони коротші','Результати AI ймовірнісні — роадмапи повинні враховувати невизначеність досліджень, розриви від прототипу до продакшну, час побудови eval-інфраструктури та безпекове загартовування','Вони потребують більше розробників','Вони дорожчі'],ans:1},
+        {q:'Яка найважливіша навичка для комунікації обмежень AI нетехнічним стейкхолдерам?',opts:['Точне використання технічної термінології','Переведення ймовірнісних результатів та невизначеності в конкретні бізнес-терміни — без жаргону, що створює плутанину','Показ діаграм архітектури моделі','Презентація benchmark-оцінок'],ans:1},
+        {q:'На якому рівні компетентності AI-інженер зазвичай відповідає за стратегію оцінки для всієї організації?',opts:['Junior','Staff AI Engineer — встановлює методологію eval, партнерує з дослідниками та визначає загальнокорпоративні ворота якості','Mid-level','Senior'],ans:1},
+        {q:'Що повинен явно включати 90-денний роадмап AI-функції, чого може не мати традиційний?',opts:['Більше функцій','Go/no-go точки прийняття рішень на кожному етапі на основі eval-метрик — визнаючи, що AI-функції можуть не підходити для випуску, якщо порогові значення якості не досягнуті','Більше розробників','Більший бюджет'],ans:1}
+      ],
+      am:[
+        {q:'Vor e arajiarkakan kaz-makerputyan karuyc AI engineering-i masshtabi mej:',opts:['Bolor AI injenernerě mek kendronal khmbi mej','Hybrid: kendronal platform khumbě gateway-i, evals-i yev governance-i pastargatun e; embedded AI injenernerě verin feature-ner en karucum — platform-ě araganacnum e ays e ochte karuinagoghakan','Bolor AI injenernerě product khmberi mej en','Spetsializiruvats AI injenernerě petakanum chen'],ans:1},
+        {q:'Inch e danum AI product roadmaps-ě skazbanak aylakann traditsion software roadmaps-ic:',opts:['Nrank aveli kkacr en','AI ardjunqnerě vichakakhanayin en — roadmaps-ě petakum en harkararkel hatkhutyan anverakanutyouně, prototype-ic production-i takutyunnerě, eval kakhutyan kamakhnayin zhamanak yev anvtangutyan amen kov chnayoğakan','Nrank aveli shatt ishkhan en petakum','Nrank aveli shtap en'],ans:1},
+        {q:'Vor e amena karevorum hmamutyouně AI sharangneri haghordakman hamar che-texnikakan stakeholder-nerin:',opts:['Texnikakan terminologian ughghaki ogtaharum','Vichakakhanayin ardjunqneri yev anverakanutyani kazmakerputyan biznes-em chenagrov — aranc zhargon voré shfotum e aranc skhalachap bazhakakel','Model arxitektura diagramner tsuyts tal','Benchmark-i ardjunqner ner kaghakaparutyoun'],ans:1},
+        {q:'Vor kompetentutyan makarerdi vra AI injener sahamanafakum e bolor kazmakerputyan hamar evaluation strategia:',opts:['Junior','Staff AI Engineer — vor eval metodologian e hashvarkum, hetazotoghner et gortaktsayum e yev ambaghch kazmakerputyan orakutyuni vortekner yev AI anvtangutyan normeri skhalneri','Mid-level','Senior'],ans:1},
+        {q:'Inch petq e 90-orerya AI feature roadmap-ě haytnaborin nerkayatsni vor traditsion software roadmap-ě karogi e chunkena:',opts:['Aveli feature-ner','Go/no-go vochorodman kayarner amek khangerum eval-metrikanerov — hastatelu vor AI feature-nerě karogi en chbavalel tu orakutyani shnorhavor vorogakner chi katarstvoum','Aveli developers','Aveli mets byudget'],ans:1}
+      ]
+    }
+  }
+];
+
+// ── Engine ────────────────────────────────────────────────────────────────
+function startCourse(){const name=document.getElementById('inp-name').value.trim();const email=document.getElementById('inp-email').value.trim();if(!name||!email){alert('Please fill in your name and email.');return;}state.name=name;state.email=email;if(!state.progress.length)state.progress=MODS.map(()=>null);save();document.getElementById('reg-screen').classList.remove('active');document.getElementById('course-screen').classList.add('active');renderSidebar();renderModule();}
+function goHome(){document.getElementById('course-screen').classList.remove('active');document.getElementById('cert-screen').classList.remove('active');document.getElementById('reg-screen').classList.add('active');}
+function renderSidebar(){const list=document.getElementById('sidebar-list');list.innerHTML=MODS.map((m,i)=>{const score=state.progress[i];const done=score>=70;const locked=i>0&&state.progress[i-1]===null;const active=i===state.cur;return`<div class="mod-item ${active?'active':''} ${done?'done':''} ${locked?'locked':''}" onclick="goMod(${i})"><div class="mod-num">${done?'✓':i+1}</div><div class="mod-info"><div class="mod-title">${t(m).title}</div><div class="mod-dur">⏱ ${m.duration}</div>${score!==null?`<div class="mod-score">${score}%</div>`:''}</div></div>`;}).join('');const done=state.progress.filter(s=>s>=70).length;const pct=Math.round(done/MODS.length*100);document.getElementById('hdr-prog-bar').style.width=pct+'%';document.getElementById('hdr-pct').textContent=pct+'%';}
+function renderModule(){const m=MODS[state.cur];document.getElementById('mod-title').textContent=t(m).title;document.getElementById('mod-dur').textContent='⏱ '+m.duration+' · 📚 Lesson · 🧪 Lab · ❓ Quiz';renderLesson(m);renderLab(m);renderQuiz(m);switchTab('lesson');applyLang();}
+function renderLesson(m){document.getElementById('panel-lesson').innerHTML=m.lesson;}
+function renderLab(m){document.getElementById('panel-lab').innerHTML=m.lab;}
+function renderQuiz(m){const qs=m.quiz[curLang]||m.quiz['en'];const u=UI_STR[curLang];const qs_state=state.quizState[state.cur]||{selected:{},submitted:false};const submitted=qs_state.submitted;let html=`<h2>❓ Quiz — ${t(m).title}</h2>`;qs.forEach((q,qi)=>{html+=`<div class="q-card"><p>${qi+1}. ${q.q}</p>`;q.opts.forEach((opt,oi)=>{let cls='opt';if(qs_state.selected[qi]===oi)cls+=' selected';if(submitted){if(oi===q.ans)cls+=' correct';else if(qs_state.selected[qi]===oi)cls+=' wrong';}html+=`<div class="${cls}" onclick="selectOpt(${qi},${oi})"><div class="opt-dot"></div>${opt}</div>`;});html+=`</div>`;});const answered=Object.keys(qs_state.selected).length;if(!submitted){html+=`<div class="quiz-footer"><span class="quiz-score">${answered}/${qs.length} answered</span><button class="btn-quiz" onclick="submitQuiz()" ${answered<qs.length?'disabled':''}>${u.submitBtn}</button></div>`;}else{const score=Math.round(qs.filter((_,qi)=>qs_state.selected[qi]===_.ans).length/qs.length*100);const pass=score>=70;html+=`<div class="quiz-footer"><span class="quiz-score">${u.scoreLabel}: ${score}% — ${pass?u.passMsg:u.failMsg}</span>${!pass?`<button class="btn-quiz" onclick="retryQuiz()">${u.retryBtn}</button>`:''}</div>`;}document.getElementById('panel-quiz').innerHTML=html;}
+function selectOpt(qi,oi){const qs_state=state.quizState[state.cur]||{selected:{},submitted:false};if(qs_state.submitted)return;qs_state.selected[qi]=oi;state.quizState[state.cur]=qs_state;save();renderQuiz(MODS[state.cur]);}
+function submitQuiz(){const m=MODS[state.cur];const qs=m.quiz[curLang]||m.quiz['en'];const qs_state=state.quizState[state.cur]||{selected:{},submitted:false};qs_state.submitted=true;state.quizState[state.cur]=qs_state;const score=Math.round(qs.filter((_,qi)=>qs_state.selected[qi]===_.ans).length/qs.length*100);if(state.progress[state.cur]===null||score>state.progress[state.cur])state.progress[state.cur]=score;save();renderQuiz(m);renderSidebar();if(score>=70&&state.progress.every(s=>s>=70))setTimeout(showCert,1200);}
+function retryQuiz(){state.quizState[state.cur]={selected:{},submitted:false};save();renderQuiz(MODS[state.cur]);}
+function switchTab(tab){['lesson','lab','quiz'].forEach(t=>{document.getElementById('panel-'+t).classList.toggle('active',t===tab);document.getElementById('tab-'+t).classList.toggle('active',t===tab);});}
+function goMod(i){if(i>0&&state.progress[i-1]===null)return;state.cur=i;save();renderSidebar();renderModule();}
+function prevMod(){if(state.cur>0)goMod(state.cur-1);}
+function nextMod(){if(state.cur<MODS.length-1)goMod(state.cur+1);}
+function showCert(){document.getElementById('course-screen').classList.remove('active');document.getElementById('cert-screen').classList.add('active');document.getElementById('cert-name').textContent=state.name;document.getElementById('cert-meta').textContent='AI Engineering Expert · Level 4 · AlphaDevs Academy · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})+' · '+MODS.length+' modules completed';}
+
+load();applyLang();
+if(state.name){document.getElementById('reg-screen').classList.remove('active');document.getElementById('course-screen').classList.add('active');renderSidebar();renderModule();}
+</script>
+</body>
+</html>
